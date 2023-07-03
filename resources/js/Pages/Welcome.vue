@@ -4,6 +4,7 @@
     import Hero from '@/Components/Hero.vue'
     import Card from '@/Components/Card.vue'
     import CategoryCard from '@/Components/CategoryCard.vue'
+    import Footer from '@/Components/Footer.vue'
 </script>
 
 <template>
@@ -27,5 +28,8 @@
             <CategoryCard />
             <CategoryCard />
         </div>
+    </div>
+    <div>
+        <Footer />
     </div>
 </template>
