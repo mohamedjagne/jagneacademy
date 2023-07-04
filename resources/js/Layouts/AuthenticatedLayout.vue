@@ -147,11 +147,11 @@ const sideOpen = ref(false)
                 <div class="space-y-2">
                     <label class="px-3 text-xs text-gray-500 uppercase dark:text-gray-400">Customization</label>
 
-                    <a class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-teal-300 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-900" href="#">
+                    <Link :href="route('categories')" :class="{ 'bg-teal-300 text-gray-900' : $page.url.startsWith('/categories') }" class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-teal-300 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-900" href="#">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 w-5" viewBox="0 0 24 24" style="fill: rgba(71, 85, 105, 1);transform: ;msFilter:;"><path d="M10 3H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zM9 9H5V5h4v4zm11-6h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zm-1 6h-4V5h4v4zm-9 4H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-6a1 1 0 0 0-1-1zm-1 6H5v-4h4v4zm8-6c-2.206 0-4 1.794-4 4s1.794 4 4 4 4-1.794 4-4-1.794-4-4-4zm0 6c-1.103 0-2-.897-2-2s.897-2 2-2 2 .897 2 2-.897 2-2 2z"></path></svg>
 
                         <span class="mx-2 text-sm font-medium">Categories</span>
-                    </a>
+                    </Link>
 
                     <a class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-teal-300 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-900" href="#">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
