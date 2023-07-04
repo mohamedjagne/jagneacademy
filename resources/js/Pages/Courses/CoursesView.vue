@@ -33,10 +33,11 @@
 
 <template>
     <AuthenticatedLayout>
+        <Head title="Courses List" />
         <div>
             <div class="sm:flex sm:items-center sm:justify-between">
                 <h1>Courses List</h1>
-                <Link href="route('units.storeForm')">
+                <Link :href="route('courses.storeForm')">
                     <PrimaryButton>
                         Add Course
                     </PrimaryButton>

@@ -31,6 +31,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::get('/courses', [CoursesController::class, 'index'])->name('courses');
+    Route::get('/courses/create', [CoursesController::class, 'storeForm'])->name('courses.storeForm');
+    Route::post('/courses/create', [CoursesController::class, 'store'])->name('courses.store');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
