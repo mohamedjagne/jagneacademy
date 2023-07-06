@@ -7,6 +7,8 @@
     import PrimaryButton from '@/Components/PrimaryButton.vue'
     import { QuillEditor } from '@vueup/vue-quill'
     import '@vueup/vue-quill/dist/vue-quill.snow.css'
+    import '@vime/core/themes/default.css';
+    import { Player, DefaultUi, Video } from '@vime/vue-next';
 
     const thumbnailUrl = ref(null)
     const previewUrl = ref(null)
@@ -56,11 +58,11 @@
                         class="mt-2 w-full"
                     />
                 </div>
-                <div class="mt-4 md:flex md:items-center md:space-x-2">
+                <div class="mt-4 md:flex md:space-x-2">
                     <div>
                         <InputLabel value="Preview" />
-                        <div class="w-full bg-grey-lighter mt-2">
-                            <label v-if="!form.preview" class="w-60 h-32 flex flex-col items-center px-4 py-6 bg-white text-teal-400 rounded-lg shadow-sm tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-teal-500">
+                        <div class="bg-grey-lighter mt-2">
+                            <label v-if="!form.preview" class="w-72 h-44 flex flex-col items-center justify-center bg-white text-teal-400 rounded-lg shadow-sm tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-teal-500">
                                 <svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                     <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
                                 </svg>
@@ -72,8 +74,17 @@
                                     @change="previewChanged"
                                 />
                             </label>
-                            <div v-if="form.preview" class="w-60 h-32">
-                                <video :src="previewUrl" class="w-full h-full" controls></video>
+                            <div v-if="form.preview" class="w-72 h-44">
+                                <Player>
+                                <!-- Provider component is placed here. -->
+                                    <Video crossorigin="" poster="https://media.vimejs.com/poster.png">
+                                      <source :data-src="previewUrl" type="video/mp4" />
+                                    </Video>
+                                    <DefaultUi noClickToPlay>
+                                    <!-- We can place our own UI components here to extend the default UI. -->
+                                    </DefaultUi>
+                                </Player>
+                                <!-- <video :src="previewUrl" class="w-full h-full" controls></video> -->
                                 <div @click="removePreview" class="flex items-center justify-center text-red-600 bg-gray-200 p-1 cursor-pointer">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                       <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -85,7 +96,7 @@
                     <div>
                         <InputLabel value="Thumnail" />
                         <div class="w-full bg-grey-lighter mt-2">
-                            <label v-if="!form.thumbnail" class="w-60 h-32 flex flex-col items-center px-4 py-6 bg-white text-teal-400 rounded-lg shadow-sm tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-teal-500">
+                            <label v-if="!form.thumbnail" class="w-72 h-44 flex flex-col items-center justify-center px-4 py-6 bg-white text-teal-400 rounded-lg shadow-sm tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-teal-500">
                                 <svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                     <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
                                 </svg>
@@ -95,9 +106,10 @@
                                     class="hidden"
                                     @input="form.thumbnail = $event.target.files[0]"
                                     @change="thumbnailChanged"
+                                    accept="image/*"
                                 />
                             </label>
-                            <div v-if="form.thumbnail" class="w-60 h-32">
+                            <div v-if="form.thumbnail" class="w-72 h-40">
                                 <img :src="thumbnailUrl" class="w-full h-full">
                                 <div @click="removeThumbnail" class="flex items-center justify-center text-red-600 bg-gray-200 p-1 cursor-pointer">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
