@@ -21,6 +21,8 @@ defineProps({
 
 const form = useForm({
     title: "",
+    description: "",
+    price: "",
     body: "",
     thumbnail: "",
     preview: "",
@@ -64,6 +66,28 @@ const removePreview = () => {
                         class="mt-2 w-full"
                     />
                     <InputError :message="errors.title" />
+                </div>
+                <div class="mt-4">
+                    <InputLabel for="description" value="Description" />
+                    <textarea
+                        v-model="form.description"
+                        id="description"
+                        class="mt-2 border-teal-300 focus:border-teal-300 focus:ring-teal-400 rounded-md shadow-sm text-sm w-full"
+                        placeholder="about the course"
+                    ></textarea>
+                    <InputError :message="errors.description" />
+                </div>
+                <div>
+                    <InputLabel for="price" value="Price" />
+                    <TextInput
+                        id="price"
+                        type="number"
+                        step="any"
+                        v-model="form.price"
+                        placeholder="price"
+                        class="mt-2 w-full"
+                    />
+                    <InputError :message="errors.price" />
                 </div>
                 <div class="mt-4 md:flex md:space-x-2">
                     <div>

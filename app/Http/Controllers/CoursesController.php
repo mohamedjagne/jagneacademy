@@ -29,6 +29,8 @@ class CoursesController extends Controller
     {
         $request->validate([
             'title' => 'required',
+            'description' => 'required',
+            'price' => 'required',
             'body' => 'required',
             'thumbnail' => 'required',
             'preview' => 'required',
@@ -41,6 +43,8 @@ class CoursesController extends Controller
 
         Course::create([
             'title' => ucwords($request->title),
+            'description' => $request->description,
+            'price' => $request->price,
             'body' => $request->body,
             'thumbnail' => $thumbnail,
             'preview' => $preview,
@@ -49,5 +53,12 @@ class CoursesController extends Controller
         ]);
 
         return redirect()->route('courses');
+    }
+
+    public function view(Request $request, Course $course)
+    {
+        return Inertia::render('Courses/ViewCourse', [
+            'course' => $course
+        ]);
     }
 }

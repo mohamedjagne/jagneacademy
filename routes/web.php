@@ -34,8 +34,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/courses', [CoursesController::class, 'index'])->name('courses');
     Route::get('/courses/create', [CoursesController::class, 'storeForm'])->name('courses.storeForm');
     Route::post('/courses/create', [CoursesController::class, 'store'])->name('courses.store');
+    Route::get('/courses/{course}/view', [CoursesController::class, 'view'])->name('course.view');
 
-       // categories get requests
+    // categories get requests
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories');
     Route::get('/categories/create', [CategoryController::class, 'storeForm'])->name('categories.storeForm');
     Route::get('/categories/{category}/update', [CategoryController::class, 'updateForm'])->name('categories.updateForm');
@@ -50,4 +51,4 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

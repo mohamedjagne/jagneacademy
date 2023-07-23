@@ -76,7 +76,7 @@ const deleteUnit = () => {
                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                         >
                             <Link
-                                href=""
+                                :href="route('course.view', course.id)"
                                 class="hover:underline hover:text-teal-400"
                             >
                                 {{ course.title }}
