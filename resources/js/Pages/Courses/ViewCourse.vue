@@ -5,6 +5,7 @@ import TextInput from "@/Components/TextInput.vue";
 import Modal from "@/Components/Modal.vue";
 import DangerButton from "@/Components/DangerButton.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
+import Tabs from "@/Components/Tabs.vue";
 import { ref } from "vue";
 import { Head, useForm, Link } from "@inertiajs/vue3";
 import "@vime/core/themes/default.css";
@@ -18,7 +19,10 @@ defineProps({
 <template>
     <AuthenticatedLayout>
         <Head :title="course.title" />
-        <div class="w-full bg-teal-500 p-5 mb-4 flex space-x-3 rounded-md">
+
+        <Tabs />
+
+        <div class="w-full bg-teal-500 p-5 mb-4 flex space-x-3 rounded-md mt-4">
             <div class="leading-relaxed w-1/2 space-y-3 text-white">
                 <h1 class="text-3xl font-bold">{{ course.title }}</h1>
                 <p>{{ course.description }}</p>
