@@ -1,26 +1,35 @@
 <script setup>
 import PrimaryButton from "@/Components/PrimaryButton.vue";
+import { Link } from "@inertiajs/vue3";
+
+defineProps({
+    thumbnail: String,
+    title: String,
+    description: String,
+    price: Number,
+});
 </script>
 
 <template>
-    <div
+    <Link
+        href=""
         class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
     >
-        <a href="#">
+        <p href="#">
             <img
                 class="rounded-t-lg w-full h-52 object-cover"
-                src="https://images.unsplash.com/photo-1682686578842-00ba49b0a71a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1375&q=80"
-                alt=""
+                :src="'/storage/' + thumbnail"
+                :alt="title"
             />
-        </a>
+        </p>
         <div class="p-5">
-            <a href="#">
+            <p href="#">
                 <h5
-                    class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+                    class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white"
                 >
-                    Noteworthy technology
+                    {{ title }}
                 </h5>
-            </a>
+            </p>
             <p class="flex items-center text-sm">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -38,12 +47,13 @@ import PrimaryButton from "@/Components/PrimaryButton.vue";
                 </svg>
                 <span>17hrs | 157lessons</span>
             </p>
-            <p class="my-3 font-normal text-gray-700 dark:text-gray-400">
-                Here are the biggest enterprise technology acquisitions of 2021
-                so far, in reverse chronological order.
+            <p
+                class="my-3 text-sm font-normal text-gray-700 dark:text-gray-400"
+            >
+                {{ description }}
             </p>
             <div class="flex items-center justify-between">
-                <PrimaryButton class="flex items-center">
+                <!-- <PrimaryButton class="flex items-center">
                     Enroll
                     <svg
                         aria-hidden="true"
@@ -58,12 +68,16 @@ import PrimaryButton from "@/Components/PrimaryButton.vue";
                             clip-rule="evenodd"
                         ></path>
                     </svg>
-                </PrimaryButton>
+                </PrimaryButton> -->
                 <span
-                    class="bg-green-100 text-green-800 font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300"
-                    >$15</span
+                    class="bg-teal-300 text-teal-800 font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-teal-900 dark:text-teal-300 text-sm"
+                    >Premium</span
+                >
+                <span
+                    class="bg-red-200 text-red-800 font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300 text-sm"
+                    >${{ price }}</span
                 >
             </div>
         </div>
-    </div>
+    </Link>
 </template>

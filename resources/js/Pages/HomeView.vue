@@ -5,6 +5,11 @@ import Hero from "@/Components/Hero.vue";
 import Card from "@/Components/Card.vue";
 import CategoryCard from "@/Components/CategoryCard.vue";
 import Footer from "@/Components/Footer.vue";
+
+defineProps({
+    categories: Array,
+    courses: Array,
+});
 </script>
 
 <template>
@@ -16,9 +21,13 @@ import Footer from "@/Components/Footer.vue";
         <div
             class="mt-3 grid grid-rows-1 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2"
         >
-            <Card />
-            <Card />
-            <Card />
+            <Card
+                v-for="course in courses"
+                :thumbnail="course.thumbnail"
+                :title="course.title"
+                :description="course.description"
+                :price="course.price"
+            />
         </div>
     </div>
     <div class="max-w-6xl mx-auto mb-11 p-4">
@@ -26,10 +35,11 @@ import Footer from "@/Components/Footer.vue";
         <div
             class="mt-3 grid grid-rows-1 grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2"
         >
-            <CategoryCard />
-            <CategoryCard />
-            <CategoryCard />
-            <CategoryCard />
+            <CategoryCard
+                v-for="category in categories"
+                :img="category.image"
+                :caption="category.category_name"
+            />
         </div>
     </div>
     <div>
