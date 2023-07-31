@@ -7,7 +7,6 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CoursesController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
-use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,14 +20,18 @@ use Inertia\Inertia;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/courses/{course}', [CoursesController::class, 'guestView'])->name('course.guest.view');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+    // courses get requests
     Route::get('/courses', [CoursesController::class, 'index'])->name('courses');
     Route::get('/courses/create', [CoursesController::class, 'storeForm'])->name('courses.storeForm');
-    Route::post('/courses/create', [CoursesController::class, 'store'])->name('courses.store');
     Route::get('/courses/{course}/view', [CoursesController::class, 'view'])->name('course.view');
+
+    // courses post requests
+    Route::post('/courses/create', [CoursesController::class, 'store'])->name('courses.store');
 
     // categories get requests
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories');

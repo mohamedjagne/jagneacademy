@@ -7,12 +7,13 @@ defineProps({
     title: String,
     description: String,
     price: Number,
+    id: Number
 });
 </script>
 
 <template>
     <Link
-        href=""
+        :href="route('course.guest.view', id)"
         class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
     >
         <p href="#">

@@ -61,4 +61,11 @@ class CoursesController extends Controller
             'course' => $course
         ]);
     }
+
+    public function guestView(Course $course)
+    {
+        return Inertia::render('Courses/GuestCourseView', [
+            'course' => $course
+        ]);
+    }
 }
