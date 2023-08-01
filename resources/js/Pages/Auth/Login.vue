@@ -33,7 +33,7 @@ const submit = () => {
     <GuestLayout>
         <Head title="Login" />
         <div
-            class="bg-white w-full md:max-w-md lg:max-w-full md:mx-auto md:mx-0 md:w-1/2 xl:w-1/3 h-screen px-6 lg:px-16 xl:px-12 flex items-center justify-center"
+            class="bg-white w-full md:max-w-md lg:max-w-full md:mx-auto md:mx-0 md:w-1/2 px-6 lg:px-16 xl:px-12 h-full flex items-center justify-center"
         >
             <div class="w-full h-100">
                 <h1 class="text-xl md:text-2xl font-bold leading-tight">
