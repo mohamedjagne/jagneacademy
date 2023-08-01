@@ -20,7 +20,7 @@ use App\Http\Controllers\HomeController;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/courses/{course}', [CoursesController::class, 'guestView'])->name('course.guest.view');
+Route::get('/course/{course}', [CoursesController::class, 'guestView'])->name('course.guest.view');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
