@@ -83,7 +83,7 @@ const deleteUnit = () => {
                             </Link>
                         </th>
                         <td class="px-6 py-4 flex items-center">
-                            <Link href="route('units.updateForm', unit.id)">
+                            <Link :href="route('course.updateForm', course.id)">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"

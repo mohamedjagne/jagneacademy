@@ -29,9 +29,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/courses', [CoursesController::class, 'index'])->name('courses');
     Route::get('/courses/create', [CoursesController::class, 'storeForm'])->name('courses.storeForm');
     Route::get('/courses/{course}/view', [CoursesController::class, 'view'])->name('course.view');
+    Route::get('/courses/{course}/update', [CoursesController::class, 'updateForm'])->name('course.updateForm');
 
-    // courses post requests
+    // courses post, put and delete requests
     Route::post('/courses/create', [CoursesController::class, 'store'])->name('courses.store');
+    Route::put('/courses/{course}/update', [CoursesController::class, 'update'])->name('courses.update');
 
     // categories get requests
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories');

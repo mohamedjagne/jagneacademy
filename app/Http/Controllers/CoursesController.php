@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Course;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class CoursesController extends Controller
@@ -67,5 +68,56 @@ class CoursesController extends Controller
         return Inertia::render('Courses/GuestCourseView', [
             'course' => $course
         ]);
+    }
+
+    public function updateForm(Course $course)
+    {
+        $categories = Category::latest()->get();
+
+        return Inertia::render('Courses/UpdateCourseView', [
+            'course' => $course,
+            'categories' => $categories
+        ]);
+    }
+
+    public function update(Course $course, Request $request)
+    {
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'price' => 'required',
+            'body' => 'required',
+            'thumbnail' => 'required',
+            'preview' => 'required',
+            'category_id' => 'required',
+            'objectives' => 'required'
+        ]);
+
+        if ($request->preview == $course->preview) {
+            $preview = $course->preview;
+        } else {
+            $preview = $request->preview->store('preview', 'public');
+            Storage::disk('public')->delete($course->preview);
+        }
+
+        if ($request->thumbnail == $course->thumbnail) {
+            $thumbnail = $course->thumbnail;
+        } else {
+            $thumbnail = $request->thumbnail->store('thumbnail', 'public');
+            Storage::disk('public')->delete($course->thumbnail);
+        }
+
+        $course->update([
+            'title' => ucwords($request->title),
+            'description' => $request->description,
+            'price' => $request->price,
+            'body' => $request->body,
+            'thumbnail' => $thumbnail,
+            'preview' => $preview,
+            'category_id' => $request->category_id,
+            'objectives' => $request->objectives
+        ]);
+
+        return redirect()->route('courses');
     }
 }
