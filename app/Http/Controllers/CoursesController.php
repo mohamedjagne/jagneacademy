@@ -10,11 +10,18 @@ use Inertia\Inertia;
 
 class CoursesController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $courses = Course::latest()->get();
+        $search = $request->search;
+        $courses = Course::latest()
+            ->when($search, function ($query) use ($search) {
+                $query->where('title', 'like', '%' . $search . '%');
+            })
+            ->get();
+
         return Inertia::render('Courses/CoursesView', [
-            'courses' => $courses
+            'courses' => $courses,
+            'search' => $search
         ]);
     }
 
@@ -119,5 +126,13 @@ class CoursesController extends Controller
         ]);
 
         return redirect()->route('courses');
+    }
+
+    public function delete(Course $course)
+    {
+        $course->delete();
+
+        Storage::disk('public')->delete($course->thumbnail);
+        Storage::disk('public')->delete($course->preview);
     }
 }

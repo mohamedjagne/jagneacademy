@@ -5,33 +5,44 @@ import TextInput from "@/Components/TextInput.vue";
 import Modal from "@/Components/Modal.vue";
 import DangerButton from "@/Components/DangerButton.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
-import { ref } from "vue";
-import { Head, useForm, Link } from "@inertiajs/vue3";
+import { ref, watch } from "vue";
+import { Head, useForm, Link, router } from "@inertiajs/vue3";
 
-const deletedUnit = ref(null);
+const props = defineProps({
+    courses: Array,
+    search: String,
+});
 
-const confirmingUnitDeletion = ref(false);
+const deletedCourse = ref(null);
+
+const search = ref(props.search);
+
+watch(search, (value) => {
+    if (value) {
+        router.get(route("courses"), { search: value });
+    } else {
+        router.get(route("courses"));
+    }
+});
+
+const confirmingCourseDeletion = ref(false);
 
 const closeModal = () => {
-    confirmingUnitDeletion.value = false;
+    confirmingCourseDeletion.value = false;
 };
 
-const confirmUnitDeletion = (id) => {
-    confirmingUnitDeletion.value = true;
+const confirmCourseDeletion = (id) => {
+    confirmingCourseDeletion.value = true;
 
-    deletedUnit.value = id;
+    deletedCourse.value = id;
 };
-
-defineProps({
-    courses: Array,
-});
 
 const form = useForm({});
 
-const deleteUnit = () => {
-    // form.delete(route('units.delete', deletedUnit.value), {
-    //     onSuccess: () => closeModal(),
-    // })
+const deleteCourse = () => {
+    form.delete(route("courses.delete", deletedCourse.value), {
+        onSuccess: () => closeModal(),
+    });
 };
 </script>
 
@@ -101,7 +112,7 @@ const deleteUnit = () => {
                             </Link>
                             <div
                                 class="cursor-pointer"
-                                @click="confirmUnitDeletion()"
+                                @click="confirmCourseDeletion(course.id)"
                             >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -123,7 +134,7 @@ const deleteUnit = () => {
                 </tbody>
             </table>
         </div>
-        <Modal :show="confirmingUnitDeletion" @close="closeModal">
+        <Modal :show="confirmingCourseDeletion" @close="closeModal">
             <div class="p-6">
                 <h2 class="text-lg font-medium text-gray-900">
                     Are you sure you want to delete the course?
@@ -134,7 +145,7 @@ const deleteUnit = () => {
                         Cancel
                     </SecondaryButton>
 
-                    <DangerButton class="ml-3" @click="deleteUnit">
+                    <DangerButton class="ml-3" @click="deleteCourse">
                         Delete
                     </DangerButton>
                 </div>
