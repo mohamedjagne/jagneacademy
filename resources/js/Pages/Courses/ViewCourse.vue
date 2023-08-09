@@ -20,7 +20,7 @@ defineProps({
     <AuthenticatedLayout>
         <Head :title="course.title" />
 
-        <Tabs />
+        <Tabs :id="course.id" />
 
         <div class="w-full bg-teal-500 p-5 mb-4 flex space-x-3 rounded-md mt-4">
             <div class="leading-relaxed w-1/2 space-y-3 text-white">

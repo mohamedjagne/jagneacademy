@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Course;
+use App\Models\Section;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
@@ -134,5 +135,16 @@ class CoursesController extends Controller
 
         Storage::disk('public')->delete($course->thumbnail);
         Storage::disk('public')->delete($course->preview);
+    }
+
+    public function sections(Course $course)
+    {
+        $sections = Section::where('course_id', $course->id)
+            ->latest()->get();
+
+        return Inertia::render('Courses/CourseSectionsView', [
+            'course' => $course,
+            'sections' => $sections
+        ]);
     }
 }

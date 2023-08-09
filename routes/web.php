@@ -30,6 +30,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/courses/create', [CoursesController::class, 'storeForm'])->name('courses.storeForm');
     Route::get('/courses/{course}/view', [CoursesController::class, 'view'])->name('course.view');
     Route::get('/courses/{course}/update', [CoursesController::class, 'updateForm'])->name('course.updateForm');
+    Route::get('/courses/{course}/sections', [CoursesController::class, 'sections'])->name('course.sections');
 
     // courses post, put and delete requests
     Route::post('/courses/create', [CoursesController::class, 'store'])->name('courses.store');

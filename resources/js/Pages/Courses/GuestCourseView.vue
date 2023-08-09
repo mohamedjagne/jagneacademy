@@ -4,6 +4,7 @@ import Navbar from "@/Components/Navbar.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
 import "@vime/core/themes/default.css";
 import { Player, DefaultUi, Video } from "@vime/vue-next";
+import Footer from "@/Components/Footer.vue";
 
 defineProps({
     course: Object,
@@ -142,4 +143,5 @@ defineProps({
             </div>
         </div>
     </div>
+    <Footer />
 </template>
