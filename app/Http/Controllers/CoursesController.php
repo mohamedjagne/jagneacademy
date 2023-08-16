@@ -147,4 +147,25 @@ class CoursesController extends Controller
             'sections' => $sections
         ]);
     }
+
+    public function sectionsStoreForm(Course $course)
+    {
+        return Inertia::render('Courses/CreateCourseSectionsView', [
+            'course' => $course
+        ]);
+    }
+
+    public function sectionsStore(Course $course, Request $request)
+    {
+        $request->validate([
+            'title' => 'required'
+        ]);
+
+        Section::create([
+            'title' => ucwords($request->title),
+            'course_id' => $course->id
+        ]);
+
+        return redirect()->route('course.sections', $course->id);
+    }
 }
