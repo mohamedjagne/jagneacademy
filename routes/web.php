@@ -38,6 +38,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('/courses/{course}/update', [CoursesController::class, 'update'])->name('courses.update');
     Route::delete('/courses/{course}/delete', [CoursesController::class, 'delete'])->name('courses.delete');
     Route::post('/courses/{course}/sections/create', [CoursesController::class, 'sectionsStore'])->name('courses.sections.store');
+    Route::delete('/courses/sections/{section}/delete', [CoursesController::class, 'sectionsDelete'])->name('courses.section.delete');
 
     // categories get requests
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories');

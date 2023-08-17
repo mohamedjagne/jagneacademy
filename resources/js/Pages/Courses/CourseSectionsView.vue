@@ -15,34 +15,32 @@ const props = defineProps({
     course: Object,
 });
 
-const deletedCourse = ref(null);
+const deletedSection = ref(null);
 
 const search = ref(props.search);
 
 watch(search, (value) => {
-    if (value) {
-        router.get(route("courses"), { search: value });
-    } else {
-        router.get(route("courses"));
-    }
+    router.get(route("course.sections", props.course.id), {
+        search: value,
+    });
 });
 
-const confirmingCourseDeletion = ref(false);
+const confirmingSectionDeletion = ref(false);
 
 const closeModal = () => {
-    confirmingCourseDeletion.value = false;
+    confirmingSectionDeletion.value = false;
 };
 
-const confirmCourseDeletion = (id) => {
-    confirmingCourseDeletion.value = true;
+const confirmSectionDeletion = (id) => {
+    confirmingSectionDeletion.value = true;
 
-    deletedCourse.value = id;
+    deletedSection.value = id;
 };
 
 const form = useForm({});
 
 const deleteCourse = () => {
-    form.delete(route("courses.delete", deletedCourse.value), {
+    form.delete(route("courses.section.delete", deletedSection.value), {
         onSuccess: () => closeModal(),
     });
 };
@@ -110,7 +108,7 @@ const deleteCourse = () => {
                             </Link>
                             <div
                                 class="cursor-pointer"
-                                @click="confirmCourseDeletion(section.id)"
+                                @click="confirmSectionDeletion(section.id)"
                             >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -132,10 +130,10 @@ const deleteCourse = () => {
                 </tbody>
             </table>
         </div>
-        <Modal :show="confirmingCourseDeletion" @close="closeModal">
+        <Modal :show="confirmingSectionDeletion" @close="closeModal">
             <div class="p-6">
                 <h2 class="text-lg font-medium text-gray-900">
-                    Are you sure you want to delete the course?
+                    Are you sure you want to delete the section?
                 </h2>
 
                 <div class="mt-6 flex justify-end">

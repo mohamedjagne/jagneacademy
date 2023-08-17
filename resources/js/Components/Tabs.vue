@@ -41,14 +41,14 @@ defineProps({
                     :href="route('course.sections', id)"
                     :class="{
                         'text-teal-400 border-b-2 border-teal-500 dark:text-teal-300 dark:border-teal-400 hover:text-teal-500 hover:border-teal-500 dark:hover:text-teal-300 group':
-                            $page.url === `/courses/${id}/sections`,
+                            $page.url.startsWith(`/courses/${id}/sections`),
                     }"
                     class="inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group"
                 >
                     <svg
                         :class="{
                             'text-teal-500 dark:text-teal-400 group-hover:text-teal-500 dark:group-hover:text-teal-300':
-                                $page.url === `/courses/${id}/sections`,
+                                $page.url.startsWith(`/courses/${id}/sections`),
                         }"
                         class="w-4 h-4 mr-2 text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300"
                         aria-hidden="true"

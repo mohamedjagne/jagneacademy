@@ -137,14 +137,20 @@ class CoursesController extends Controller
         Storage::disk('public')->delete($course->preview);
     }
 
-    public function sections(Course $course)
+    public function sections(Course $course, Request $request)
     {
+        $search = $request->search;
         $sections = Section::where('course_id', $course->id)
-            ->latest()->get();
+            ->when($search, function ($query) use ($search) {
+                $query->where('title', 'like', '%' . $search . '%');
+            })
+            ->latest()
+            ->get();
 
         return Inertia::render('Courses/CourseSectionsView', [
             'course' => $course,
-            'sections' => $sections
+            'sections' => $sections,
+            'search' => $search
         ]);
     }
 
@@ -167,5 +173,12 @@ class CoursesController extends Controller
         ]);
 
         return redirect()->route('course.sections', $course->id);
+    }
+
+    public function sectionsDelete(Section $section)
+    {
+        $section->delete();
+
+        return redirect()->back();
     }
 }
