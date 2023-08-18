@@ -16,11 +16,11 @@ defineProps({
 
     <Navbar />
 
-    <div class="w-full px-12 pb-11">
+    <div class="w-full px-3 pb-11">
         <div
-            class="bg-teal-500 p-5 mb-4 flex items-center space-x-3 rounded-md mt-4"
+            class="bg-teal-500 p-5 mb-4 md:flex md:items-center md:space-x-3 rounded-md mt-4"
         >
-            <div class="leading-relaxed w-1/2 space-y-3 text-white">
+            <div class="leading-relaxed md:w-1/2 space-y-3 text-white">
                 <h1 class="text-3xl font-bold">{{ course.title }}</h1>
                 <p>{{ course.description }}</p>
                 <p>14 lessons 1 hr</p>
@@ -32,7 +32,7 @@ defineProps({
                     >
                 </div>
             </div>
-            <div class="w-1/2">
+            <div class="w-full md:w-1/2 mt-4 md:mt-0">
                 <Player>
                     <!-- Provider component is placed here. -->
                     <Video crossorigin="">
@@ -48,13 +48,13 @@ defineProps({
                 <!-- <video :src="previewUrl" class="w-full h-full" controls></video> -->
             </div>
         </div>
-        <div class="flex justify-between">
-            <div class="w-2/3 space-y-2">
+        <div class="md:flex md:justify-between space-y-3 md:space-y-0">
+            <div class="md:w-3/5 space-y-2">
                 <h4 class="text-3xl">About the course</h4>
                 <div v-html="course.body" class="leading-relaxed"></div>
             </div>
 
-            <div class="space-y-2">
+            <div class="md:space-y-2">
                 <h4 class="text-2xl">What you will learn</h4>
 
                 <ul
@@ -82,7 +82,7 @@ defineProps({
                         <span>{{ ob }}</span>
                     </li>
                 </ul>
-                <h4 class="text-2xl">Share this course</h4>
+                <h4 class="text-2xl mt-3">Share this course</h4>
                 <div class="flex space-x-3">
                     <Link href="">
                         <svg

@@ -14,7 +14,7 @@ defineProps({
                 <Link
                     :href="route('course.view', id)"
                     :class="{
-                        'text-teal-400 border-teal-500 dark:text-teal-300 dark:border-teal-400 hover:text-teal-500 hover:border-teal-500 dark:hover:text-teal-300 group':
+                        'text-teal-400 border-b-2 border-teal-400 dark:text-teal-300 dark:border-teal-400 hover:text-teal-500 hover:border-teal-500 dark:hover:text-teal-300 group':
                             $page.url === `/courses/${id}/view`,
                     }"
                     class="inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group"
@@ -40,7 +40,7 @@ defineProps({
                 <Link
                     :href="route('course.sections', id)"
                     :class="{
-                        'text-teal-400 border-b-2 border-teal-500 dark:text-teal-300 dark:border-teal-400 hover:text-teal-500 hover:border-teal-500 dark:hover:text-teal-300 group':
+                        'text-teal-400 border-b-2 border-teal-400 dark:text-teal-300 dark:border-teal-400 hover:text-teal-500 hover:border-teal-500 dark:hover:text-teal-300 group':
                             $page.url.startsWith(`/courses/${id}/sections`),
                     }"
                     class="inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group"
