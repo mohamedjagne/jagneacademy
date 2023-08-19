@@ -181,4 +181,25 @@ class CoursesController extends Controller
 
         return redirect()->back();
     }
+
+    public function sectionsUpdateForm(Course $course, Section $section)
+    {
+        return Inertia::render('Courses/UpdateCourseSectionsView', [
+            'course' => $course,
+            'section' => $section
+        ]);
+    }
+
+    public function sectionsUpdate(Course $course, Section $section, Request $request)
+    {
+        $request->validate([
+            'title' => 'required'
+        ]);
+
+        $section->update([
+            'title' => ucwords($request->title)
+        ]);
+
+        return redirect()->route('course.sections', $course->id);
+    }
 }

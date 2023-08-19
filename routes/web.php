@@ -32,6 +32,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/courses/{course}/update', [CoursesController::class, 'updateForm'])->name('course.updateForm');
     Route::get('/courses/{course}/sections', [CoursesController::class, 'sections'])->name('course.sections');
     Route::get('/courses/{course}/sections/create', [CoursesController::class, 'sectionsStoreForm'])->name('courses.sections.storeForm');
+    Route::get('/courses/{course}/sections/{section}/update', [CoursesController::class, 'sectionsUpdateForm'])->name('courses.sections.updateForm');
 
     // courses post, put and delete requests
     Route::post('/courses/create', [CoursesController::class, 'store'])->name('courses.store');
@@ -39,6 +40,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/courses/{course}/delete', [CoursesController::class, 'delete'])->name('courses.delete');
     Route::post('/courses/{course}/sections/create', [CoursesController::class, 'sectionsStore'])->name('courses.sections.store');
     Route::delete('/courses/sections/{section}/delete', [CoursesController::class, 'sectionsDelete'])->name('courses.section.delete');
+    Route::put('/courses/{course}/sections/{section}/update', [CoursesController::class, 'sectionsUpdate'])->name('courses.sections.update');
 
     // categories get requests
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories');

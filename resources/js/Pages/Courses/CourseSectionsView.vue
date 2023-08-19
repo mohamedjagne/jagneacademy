@@ -90,7 +90,14 @@ const deleteCourse = () => {
                             {{ section.title }}
                         </th>
                         <td class="px-6 py-4 flex items-center">
-                            <Link href="route('course.updateForm', section.id)">
+                            <Link
+                                :href="
+                                    route('courses.sections.updateForm', [
+                                        course.id,
+                                        section.id,
+                                    ])
+                                "
+                            >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
