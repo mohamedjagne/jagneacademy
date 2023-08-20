@@ -64,10 +64,18 @@ defineProps({
             </li>
             <li class="mr-2">
                 <a
-                    href="#"
-                    class="inline-flex items-center justify-center py-3 px-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group"
+                    :href="route('course.lessons', id)"
+                    :class="{
+                        'text-teal-400 border-teal-500 dark:text-teal-300 dark:border-teal-400 hover:text-teal-500 hover:border-teal-500 dark:hover:text-teal-300 group':
+                            $page.url.startsWith(`/courses/${id}/lessons`),
+                    }"
+                    class="inline-flex items-center justify-center py-3 px-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group"
                 >
                     <svg
+                        :class="{
+                            'text-teal-500 dark:text-teal-400 group-hover:text-teal-500 dark:group-hover:text-teal-300':
+                                $page.url.startsWith(`/courses/${id}/lessons`),
+                        }"
                         class="w-4 h-4 mr-2 text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300"
                         aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg"

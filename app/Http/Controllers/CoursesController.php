@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Course;
+use App\Models\Lesson;
 use App\Models\Section;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -201,5 +202,19 @@ class CoursesController extends Controller
         ]);
 
         return redirect()->route('course.sections', $course->id);
+    }
+
+    public function lessons(Course $course, Request $request)
+    {
+        $search = $request->search;
+        $lessons = Lesson::latest()
+            ->with('section')
+            ->get();
+
+        return Inertia::render('Courses/CourseLessonsView', [
+            'course' => $course,
+            'lessons' => $lessons,
+            'search' => $search
+        ]);
     }
 }
