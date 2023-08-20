@@ -217,4 +217,35 @@ class CoursesController extends Controller
             'search' => $search
         ]);
     }
+
+    public function lessonsStoreForm(Course $course)
+    {
+        $sections = Section::all();
+
+        return Inertia::render('Courses/CreateCourseLessonsView', [
+            'course' => $course,
+            'sections' => $sections
+        ]);
+    }
+
+    public function lessonsStore(Course $course, Request $request)
+    {
+        $request->validate([
+            'title' => 'required',
+            'body' => 'required',
+            'video' => 'required',
+            'section_id' => 'required'
+        ]);
+
+        $video = $request->video->store('videos', 'public');
+
+        Lesson::create([
+            'title' => ucwords($request->title),
+            'body' => $request->body,
+            'video' => $video,
+            'section_id' => $request->section_id
+        ]);
+
+        return redirect()->route('course.lessons', $course->id);
+    }
 }

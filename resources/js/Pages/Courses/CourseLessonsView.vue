@@ -53,7 +53,7 @@ const deleteCourse = () => {
         <div class="mt-3">
             <div class="sm:flex sm:items-center sm:justify-between">
                 <h1>Lessons List</h1>
-                <Link :href="route('courses.sections.storeForm', course.id)">
+                <Link :href="route('courses.lessons.storeForm', course.id)">
                     <PrimaryButton> Add Lesson </PrimaryButton>
                 </Link>
             </div>

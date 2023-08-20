@@ -34,6 +34,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/courses/{course}/sections/create', [CoursesController::class, 'sectionsStoreForm'])->name('courses.sections.storeForm');
     Route::get('/courses/{course}/sections/{section}/update', [CoursesController::class, 'sectionsUpdateForm'])->name('courses.sections.updateForm');
     Route::get('/courses/{course}/lessons', [CoursesController::class, 'lessons'])->name('course.lessons');
+    Route::get('/courses/{course}/lessons/create', [CoursesController::class, 'lessonsStoreForm'])->name('courses.lessons.storeForm');
 
     // courses post, put and delete requests
     Route::post('/courses/create', [CoursesController::class, 'store'])->name('courses.store');
@@ -42,6 +43,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/courses/{course}/sections/create', [CoursesController::class, 'sectionsStore'])->name('courses.sections.store');
     Route::delete('/courses/sections/{section}/delete', [CoursesController::class, 'sectionsDelete'])->name('courses.section.delete');
     Route::put('/courses/{course}/sections/{section}/update', [CoursesController::class, 'sectionsUpdate'])->name('courses.sections.update');
+    Route::post('/courses/{course}/lessons/create', [CoursesController::class, 'lessonsStore'])->name('courses.lessons.store');
 
     // categories get requests
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories');
