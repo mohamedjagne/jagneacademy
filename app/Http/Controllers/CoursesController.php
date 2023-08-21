@@ -248,4 +248,11 @@ class CoursesController extends Controller
 
         return redirect()->route('course.lessons', $course->id);
     }
+
+    public function viewLesson(Course $course, Lesson $lesson)
+    {
+        return Inertia::render('Courses/ViewCourseLesson', [
+            'lesson' => $lesson
+        ]);
+    }
 }

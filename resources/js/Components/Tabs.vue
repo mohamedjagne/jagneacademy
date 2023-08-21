@@ -63,7 +63,7 @@ defineProps({
                 </Link>
             </li>
             <li class="mr-2">
-                <a
+                <Link
                     :href="route('course.lessons', id)"
                     :class="{
                         'text-teal-400 border-teal-500 dark:text-teal-300 dark:border-teal-400 hover:text-teal-500 hover:border-teal-500 dark:hover:text-teal-300 group':
@@ -86,7 +86,7 @@ defineProps({
                             d="M5 11.424V1a1 1 0 1 0-2 0v10.424a3.228 3.228 0 0 0 0 6.152V19a1 1 0 1 0 2 0v-1.424a3.228 3.228 0 0 0 0-6.152ZM19.25 14.5A3.243 3.243 0 0 0 17 11.424V1a1 1 0 0 0-2 0v10.424a3.227 3.227 0 0 0 0 6.152V19a1 1 0 1 0 2 0v-1.424a3.243 3.243 0 0 0 2.25-3.076Zm-6-9A3.243 3.243 0 0 0 11 2.424V1a1 1 0 0 0-2 0v1.424a3.228 3.228 0 0 0 0 6.152V19a1 1 0 1 0 2 0V8.576A3.243 3.243 0 0 0 13.25 5.5Z"
                         /></svg
                     >Lessons
-                </a>
+                </Link>
             </li>
             <li class="mr-2">
                 <a

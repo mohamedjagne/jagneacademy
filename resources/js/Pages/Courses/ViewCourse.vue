@@ -22,14 +22,16 @@ defineProps({
 
         <Tabs :id="course.id" />
 
-        <div class="w-full bg-teal-500 p-5 mb-4 flex space-x-3 rounded-md mt-4">
-            <div class="leading-relaxed w-1/2 space-y-3 text-white">
+        <div
+            class="w-full bg-teal-500 p-5 mb-4 md:flex md:space-x-3 rounded-md mt-4"
+        >
+            <div class="leading-relaxed md:w-1/2 space-y-3 text-white">
                 <h1 class="text-3xl font-bold">{{ course.title }}</h1>
                 <p>{{ course.description }}</p>
                 <p>14 lessons 1 hr</p>
                 <h4>${{ course.price }}</h4>
             </div>
-            <div class="w-1/2">
+            <div class="md:w-1/2 md:mt-0 mt-4">
                 <Player>
                     <!-- Provider component is placed here. -->
                     <Video crossorigin="">
