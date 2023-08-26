@@ -210,6 +210,9 @@ class CoursesController extends Controller
         $search = $request->search;
         $lessons = Lesson::latest()
             ->with('section')
+            ->when($search, function ($query) use ($search) {
+                $query->where('title', 'like', '%' . $search . '%');
+            })
             ->get();
 
         return Inertia::render('Courses/CourseLessonsView', [
@@ -314,5 +317,14 @@ class CoursesController extends Controller
             'lesson' => $lesson,
             'course' => $course->load(['section', 'section.lesson'])
         ]);
+    }
+
+    public function lessonsDelete(Lesson $lesson)
+    {
+        $lesson->delete();
+
+        Storage::disk('public')->delete($lesson->video);
+
+        return redirect()->back();
     }
 }

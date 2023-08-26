@@ -15,32 +15,32 @@ const props = defineProps({
     course: Object,
 });
 
-const deletedSection = ref(null);
+const deletedLesson = ref(null);
 
 const search = ref(props.search);
 
 watch(search, (value) => {
-    router.get(route("course.sections", props.course.id), {
+    router.get(route("course.lessons", props.course.id), {
         search: value,
     });
 });
 
-const confirmingSectionDeletion = ref(false);
+const confirmingLessonDeletion = ref(false);
 
 const closeModal = () => {
-    confirmingSectionDeletion.value = false;
+    confirmingLessonDeletion.value = false;
 };
 
-const confirmSectionDeletion = (id) => {
-    confirmingSectionDeletion.value = true;
+const confirmLessonDeletion = (id) => {
+    confirmingLessonDeletion.value = true;
 
-    deletedSection.value = id;
+    deletedLesson.value = id;
 };
 
 const form = useForm({});
 
 const deleteCourse = () => {
-    form.delete(route("courses.section.delete", deletedSection.value), {
+    form.delete(route("courses.lesson.delete", deletedLesson.value), {
         onSuccess: () => closeModal(),
     });
 };
@@ -133,7 +133,7 @@ const deleteCourse = () => {
                             </Link>
                             <div
                                 class="cursor-pointer"
-                                @click="confirmSectionDeletion(lesson.id)"
+                                @click="confirmLessonDeletion(lesson.id)"
                             >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -155,10 +155,10 @@ const deleteCourse = () => {
                 </tbody>
             </table>
         </div>
-        <Modal :show="confirmingSectionDeletion" @close="closeModal">
+        <Modal :show="confirmingLessonDeletion" @close="closeModal">
             <div class="p-6">
                 <h2 class="text-lg font-medium text-gray-900">
-                    Are you sure you want to delete the section?
+                    Are you sure you want to delete the lesson?
                 </h2>
 
                 <div class="mt-6 flex justify-end">

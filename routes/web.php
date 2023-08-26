@@ -48,6 +48,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('/courses/{course}/sections/{section}/update', [CoursesController::class, 'sectionsUpdate'])->name('courses.sections.update');
     Route::post('/courses/{course}/lessons/create', [CoursesController::class, 'lessonsStore'])->name('courses.lessons.store');
     Route::put('/courses/{course}/lessons/{lesson}update', [CoursesController::class, 'lessonsUpdate'])->name('courses.lessons.update');
+    Route::delete('/courses/lessons/{lesson}/delete', [CoursesController::class, 'lessonsDelete'])->name('courses.lesson.delete');
 
     // categories get requests
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories');
