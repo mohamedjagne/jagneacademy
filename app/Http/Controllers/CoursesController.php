@@ -75,7 +75,7 @@ class CoursesController extends Controller
     public function guestView(Course $course)
     {
         return Inertia::render('Courses/GuestCourseView', [
-            'course' => $course
+            'course' => $course->load(['section', 'section.lesson'])
         ]);
     }
 
@@ -253,6 +253,14 @@ class CoursesController extends Controller
     {
         return Inertia::render('Courses/ViewCourseLesson', [
             'lesson' => $lesson
+        ]);
+    }
+
+    public function startLesson(Course $course, Lesson $lesson)
+    {
+        return Inertia::render('Courses/StartLessonView', [
+            'lesson' => $lesson,
+            'course' => $course->load(['section', 'section.lesson'])
         ]);
     }
 }

@@ -111,12 +111,12 @@ const vClickOutside = {
             class="fixed top-0 left-0 z-40 w-52 h-screen border-r border-gray-200 transition-transform -translate-x-full md:translate-x-0 pb-16"
         >
             <div class="px-3 py-2 bg-white border-b border-gray-200">
-                <a href="#">
+                <Link href="/">
                     <img
                         class="w-36"
                         src="/images/jagneacademy-logo-flex.png"
                     />
-                </a>
+                </Link>
             </div>
 
             <nav

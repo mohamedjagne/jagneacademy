@@ -19,4 +19,9 @@ class Course extends Model
         'category_id',
         'objectives'
     ];
+
+    public function section()
+    {
+        return $this->hasMany(Section::class);
+    }
 }
