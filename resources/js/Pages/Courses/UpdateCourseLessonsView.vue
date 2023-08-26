@@ -3,7 +3,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import TextInput from "@/Components/TextInput.vue";
 import InputError from "@/Components/InputError.vue";
-import { Head, Link, useForm } from "@inertiajs/vue3";
+import { Head, Link, router, useForm } from "@inertiajs/vue3";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import { QuillEditor } from "@vueup/vue-quill";
 import "@vueup/vue-quill/dist/vue-quill.snow.css";
@@ -15,20 +15,30 @@ const props = defineProps({
     sections: Array,
     errors: Object,
     course: Object,
+    lesson: Object,
 });
 
 const form = useForm({
-    title: "",
-    body: "",
-    video: "",
-    section_id: "",
+    title: props.lesson.title,
+    body: props.lesson.body,
+    video: props.lesson.video,
+    section_id: props.lesson.section_id,
 });
 
 const submit = () => {
-    form.post(route("courses.lessons.store", props.course.id));
+    router.post(
+        route("courses.lessons.update", [props.course.id, props.lesson.id]),
+        {
+            _method: "put",
+            title: form.title,
+            body: form.body,
+            video: form.video,
+            section_id: form.section_id,
+        }
+    );
 };
 
-const videoUrl = ref(null);
+const videoUrl = ref("/storage/" + form.video);
 
 const videoChanged = () => {
     videoUrl.value = URL.createObjectURL(form.video);
@@ -41,7 +51,7 @@ const removeVideo = () => {
 
 <template>
     <AuthenticatedLayout>
-        <Head title="Create Lesson" />
+        <Head title="Update Lesson" />
         <form @submit.prevent="submit">
             <div>
                 <InputLabel for="title" value="Title" />
@@ -140,7 +150,7 @@ const removeVideo = () => {
                 </select>
                 <InputError :message="errors.section_id" />
             </div>
-            <PrimaryButton class="mt-4"> Create Lesson </PrimaryButton>
+            <PrimaryButton class="mt-4"> Update Lesson </PrimaryButton>
         </form>
     </AuthenticatedLayout>
 </template>

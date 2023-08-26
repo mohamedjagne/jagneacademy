@@ -257,6 +257,50 @@ class CoursesController extends Controller
         return redirect()->route('course.lessons', $course->id);
     }
 
+    public function lessonsUpdateForm(Course $course, Lesson $lesson)
+    {
+        $sections = Section::all();
+
+        return Inertia::render('Courses/UpdateCourseLessonsView', [
+            'course' => $course,
+            'sections' => $sections,
+            'lesson' => $lesson
+        ]);
+    }
+
+    public function lessonsUpdate(Course $course, Request $request, Lesson $lesson)
+    {
+        $request->validate([
+            'title' => 'required',
+            'body' => 'required',
+            'video' => 'required',
+            'section_id' => 'required'
+        ]);
+
+        if ($request->video == $lesson->video) {
+            $video = $lesson->video;
+        } else {
+            $video = $request->video->store('videos', 'public');
+            Storage::disk('public')->delete($lesson->video);
+        }
+
+        $getID3 = new getID3;
+
+        $video_file = $getID3->analyze('storage/' . $video);
+
+        $duration = $video_file['playtime_string'];
+
+        $lesson->update([
+            'title' => ucwords($request->title),
+            'body' => $request->body,
+            'video' => $video,
+            'duration' => $duration,
+            'section_id' => $request->section_id
+        ]);
+
+        return redirect()->route('course.lessons', $course->id);
+    }
+
     public function viewLesson(Course $course, Lesson $lesson)
     {
         return Inertia::render('Courses/ViewCourseLesson', [

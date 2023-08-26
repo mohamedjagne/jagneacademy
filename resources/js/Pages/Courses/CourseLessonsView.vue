@@ -110,7 +110,7 @@ const deleteCourse = () => {
                         <td class="px-6 py-4 flex items-center">
                             <Link
                                 :href="
-                                    route('courses.sections.updateForm', [
+                                    route('courses.lessons.updateForm', [
                                         course.id,
                                         lesson.id,
                                     ])
