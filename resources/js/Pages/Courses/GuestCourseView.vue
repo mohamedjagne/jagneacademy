@@ -180,7 +180,7 @@ defineProps({
                         </svg>
                         {{ lesson.title }}
                     </div>
-                    <p>4:20</p>
+                    <p>{{ lesson.duration }}</p>
                 </Link>
             </div>
         </div>

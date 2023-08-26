@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('body');
             $table->text('video')->nullable();
+            $table->string('duration');
             $table->foreignId('section_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });

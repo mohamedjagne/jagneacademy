@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Course;
 use App\Models\Lesson;
 use App\Models\Section;
+use getID3;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
@@ -239,10 +240,17 @@ class CoursesController extends Controller
 
         $video = $request->video->store('videos', 'public');
 
+        $getID3 = new getID3;
+
+        $video_file = $getID3->analyze('storage/' . $video);
+
+        $duration = $video_file['playtime_string'];
+
         Lesson::create([
             'title' => ucwords($request->title),
             'body' => $request->body,
             'video' => $video,
+            'duration' => $duration,
             'section_id' => $request->section_id
         ]);
 

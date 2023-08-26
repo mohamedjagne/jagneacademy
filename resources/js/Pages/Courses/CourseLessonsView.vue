@@ -76,6 +76,7 @@ const deleteCourse = () => {
                     <tr>
                         <th scope="col" class="px-6 py-3">Title</th>
                         <th scope="col" class="px-6 py-3">Section</th>
+                        <th scope="col" class="px-6 py-3">Duration</th>
                         <th scope="col" class="px-6 py-3">Action</th>
                     </tr>
                 </thead>
@@ -102,6 +103,9 @@ const deleteCourse = () => {
                         </th>
                         <td class="px-6 py-4">
                             {{ lesson.section.title }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ lesson.duration }}
                         </td>
                         <td class="px-6 py-4 flex items-center">
                             <Link
