@@ -36,7 +36,7 @@ defineProps({
     <AuthenticatedLayout>
         <form @submit.prevent="submit">
             <div>
-                <div class="w-full md:w-1/2">
+                <div>
                     <InputLabel
                         for="category_name"
                         value="Category Name"

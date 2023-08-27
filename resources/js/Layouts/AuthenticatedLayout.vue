@@ -372,7 +372,7 @@ const vClickOutside = {
         </aside>
 
         <!-- Page Content -->
-        <main class="min-h-screen bg-gray-100 text-gray-800 md:ml-52">
+        <main class="min-h-screen text-gray-800 md:ml-52">
             <div class="md:px-14 px-4 py-20">
                 <slot />
             </div>
