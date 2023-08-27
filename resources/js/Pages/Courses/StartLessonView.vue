@@ -34,7 +34,7 @@ defineProps({
         </div>
         <div v-html="lesson.body" class="leading-relaxed mt-4"></div>
 
-        <div class="mt-4 bg-gray-100 rounded-md">
+        <div class="mt-4 bg-white rounded-md">
             <div v-for="section in course.section">
                 <h4
                     v-if="section.lesson.length > 0"
@@ -50,7 +50,7 @@ defineProps({
                             theLesson.id,
                         ])
                     "
-                    class="flex items-center justify-between w-full px-4 py-2 text-sm font-medium border-b border-gray-300 hover:bg-gray-100 hover:text-teal-500 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white"
+                    class="flex items-center justify-between w-full px-4 py-2 text-sm font-medium border-b border-gray-300 hover:text-teal-500 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white"
                     :class="{ 'text-teal-500': lesson.id === theLesson.id }"
                 >
                     <div class="flex items-center">
