@@ -5,6 +5,7 @@ import Hero from "@/Components/Hero.vue";
 import Card from "@/Components/Card.vue";
 import CategoryCard from "@/Components/CategoryCard.vue";
 import Footer from "@/Components/Footer.vue";
+import Testimonial from "@/Components/Testimonial.vue";
 
 defineProps({
     categories: Array,
@@ -42,6 +43,11 @@ defineProps({
                 :caption="category.category_name"
             />
         </div>
+    </div>
+    <div class="max-w-6xl mx-auto mb-11 p-4 md:flex md:items-center">
+        <Testimonial />
+        <Testimonial />
+        <Testimonial />
     </div>
     <div>
         <Footer />
