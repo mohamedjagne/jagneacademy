@@ -75,8 +75,15 @@ class CoursesController extends Controller
 
     public function guestView(Course $course)
     {
+        $sections = Section::where('course_id', $course->id)->pluck('id');
+        $time = Lesson::whereIn('section_id', $sections)->sum('seconds');
+
+        $totalLessons = Lesson::whereIn('section_id', $sections)->count();
+
         return Inertia::render('Courses/GuestCourseView', [
-            'course' => $course->load(['section', 'section.lesson'])
+            'course' => $course->load(['section', 'section.lesson']),
+            'time' => $time,
+            'totalLessons' => $totalLessons
         ]);
     }
 
@@ -248,12 +255,14 @@ class CoursesController extends Controller
         $video_file = $getID3->analyze('storage/' . $video);
 
         $duration = $video_file['playtime_string'];
+        $seconds = $video_file['playtime_seconds'];
 
         Lesson::create([
             'title' => ucwords($request->title),
             'body' => $request->body,
             'video' => $video,
             'duration' => $duration,
+            'seconds' => $seconds,
             'section_id' => $request->section_id
         ]);
 
@@ -292,12 +301,14 @@ class CoursesController extends Controller
         $video_file = $getID3->analyze('storage/' . $video);
 
         $duration = $video_file['playtime_string'];
+        $seconds = $video_file['playtime_seconds'];
 
         $lesson->update([
             'title' => ucwords($request->title),
             'body' => $request->body,
             'video' => $video,
             'duration' => $duration,
+            'seconds' => $seconds,
             'section_id' => $request->section_id
         ]);
 

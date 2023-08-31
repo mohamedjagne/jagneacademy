@@ -5,9 +5,23 @@ import SecondaryButton from "@/Components/SecondaryButton.vue";
 import "@vime/core/themes/default.css";
 import { Player, DefaultUi, Video } from "@vime/vue-next";
 import Footer from "@/Components/Footer.vue";
+import { computed } from "vue";
 
-defineProps({
+const props = defineProps({
     course: Object,
+    time: Number,
+    totalLessons: Number,
+});
+
+const timeMin = Math.floor(props.time / 60);
+const timeHr = Math.floor(props.time / 120);
+
+const totalTime = computed(() => {
+    if (timeHr >= 1) {
+        return `${timeMin} hrs`;
+    } else {
+        return `${timeMin} min`;
+    }
 });
 </script>
 
@@ -23,7 +37,7 @@ defineProps({
             <div class="leading-relaxed md:w-1/2 space-y-3 text-white">
                 <h1 class="text-3xl font-bold">{{ course.title }}</h1>
                 <p>{{ course.description }}</p>
-                <p>14 lessons 1 hr</p>
+                <p>{{ totalLessons }} lessons {{ totalTime }}</p>
                 <div class="flex items-center justify-between">
                     <SecondaryButton>Start Course</SecondaryButton>
                     <span

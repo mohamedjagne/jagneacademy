@@ -7,7 +7,7 @@
                 <a href="">
                     <img
                         src="/images/jagneacademy-logo-flex.png"
-                        class="w-44 mb-3"
+                        class="w-44"
                     />
                 </a>
                 <ul

@@ -14,6 +14,7 @@ class Lesson extends Model
         'body',
         'video',
         'duration',
+        'seconds',
         'section_id'
     ];
 
