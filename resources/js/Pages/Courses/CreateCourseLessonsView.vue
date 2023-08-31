@@ -9,12 +9,16 @@ import { QuillEditor } from "@vueup/vue-quill";
 import "@vueup/vue-quill/dist/vue-quill.snow.css";
 import "@vime/core/themes/default.css";
 import { Player, DefaultUi, Video } from "@vime/vue-next";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 
 const props = defineProps({
     sections: Array,
     errors: Object,
     course: Object,
+});
+
+const sectionsOnThisCourse = computed(() => {
+    return props.sections.filter((s) => s.course_id == props.course.id);
 });
 
 const form = useForm({
@@ -134,7 +138,10 @@ const removeVideo = () => {
                     class="mt-2 border-teal-300 focus:border-teal-300 focus:ring-teal-400 rounded-md shadow-sm text-sm w-full"
                 >
                     <option value="">Select Section</option>
-                    <option v-for="section in sections" :value="section.id">
+                    <option
+                        v-for="section in sectionsOnThisCourse"
+                        :value="section.id"
+                    >
                         {{ section.title }}
                     </option>
                 </select>

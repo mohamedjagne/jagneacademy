@@ -214,12 +214,15 @@ class CoursesController extends Controller
 
     public function lessons(Course $course, Request $request)
     {
+        $sections = Section::where('course_id', $course->id)->pluck('id');
+
         $search = $request->search;
         $lessons = Lesson::latest()
             ->with('section')
             ->when($search, function ($query) use ($search) {
                 $query->where('title', 'like', '%' . $search . '%');
             })
+            ->whereIn('section_id', $sections)
             ->get();
 
         return Inertia::render('Courses/CourseLessonsView', [

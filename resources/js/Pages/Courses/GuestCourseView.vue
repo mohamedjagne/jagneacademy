@@ -14,11 +14,11 @@ const props = defineProps({
 });
 
 const timeMin = Math.floor(props.time / 60);
-const timeHr = Math.floor(props.time / 120);
+const timeHr = Math.floor(props.time / 3600);
 
 const totalTime = computed(() => {
     if (timeHr >= 1) {
-        return `${timeMin} hrs`;
+        return `${timeHr} hrs`;
     } else {
         return `${timeMin} min`;
     }
