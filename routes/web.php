@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CoursesController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\StudentAccountController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +60,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/categories/create', [CategoryController::class, 'store'])->name('categories.store');
     Route::delete('/categories/{category}/delete', [CategoryController::class, 'delete'])->name('categories.delete');
     Route::put('/categories/{category}/update', [CategoryController::class, 'update'])->name('categories.update');
+
+    Route::get('/student/account', [StudentAccountController::class, 'index'])->name('student.account');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
