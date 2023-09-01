@@ -48,6 +48,10 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+        if (auth()->user()->role_id == 1) {
+            return redirect()->intended(route('dashboard'));
+        } else if (auth()->user()->role_id == 3) {
+            return redirect()->intended(route('student.account'));
+        }
     }
 }
