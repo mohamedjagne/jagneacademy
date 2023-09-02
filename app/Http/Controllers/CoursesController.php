@@ -341,4 +341,11 @@ class CoursesController extends Controller
 
         return redirect()->back();
     }
+
+    public function buy(Course $course)
+    {
+        return Inertia::render('BuyCourse/CartView', [
+            'course' => $course
+        ]);
+    }
 }

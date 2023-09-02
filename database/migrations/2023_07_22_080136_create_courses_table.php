@@ -21,6 +21,7 @@ return new class extends Migration
             $table->text('preview');
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->text('objectives');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

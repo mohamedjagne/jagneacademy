@@ -39,7 +39,9 @@ const totalTime = computed(() => {
                 <p>{{ course.description }}</p>
                 <p>{{ totalLessons }} lessons {{ totalTime }}</p>
                 <div class="flex items-center justify-between">
-                    <SecondaryButton>Start Course</SecondaryButton>
+                    <Link :href="route('course.buy', course.id)">
+                        <SecondaryButton>Start Course</SecondaryButton>
+                    </Link>
                     <span
                         class="bg-white text-black font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300"
                         >${{ course.price }}</span
@@ -97,12 +99,12 @@ const totalTime = computed(() => {
                     </li>
                 </ul>
                 <h4 class="text-2xl mt-3">Share this course</h4>
-                <div class="flex space-x-3">
+                <div class="flex space-x-2">
                     <Link href="">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            width="35"
-                            height="35"
+                            width="30"
+                            height="30"
                             viewBox="0 0 24 24"
                             style="
                                 fill: rgba(0, 0, 0, 1);
@@ -119,8 +121,8 @@ const totalTime = computed(() => {
                     <Link href="">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            width="35"
-                            height="35"
+                            width="30"
+                            height="30"
                             viewBox="0 0 24 24"
                             style="
                                 fill: rgba(0, 0, 0, 1);
@@ -139,8 +141,8 @@ const totalTime = computed(() => {
                     <Link href="">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            width="35"
-                            height="35"
+                            width="30"
+                            height="30"
                             viewBox="0 0 24 24"
                             style="
                                 fill: rgba(0, 0, 0, 1);
