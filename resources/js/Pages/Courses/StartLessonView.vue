@@ -16,8 +16,8 @@ defineProps({
 
     <Navbar />
 
-    <div class="max-w-6xl mx-auto px-5">
-        <div class="my-4">
+    <div class="max-w-6xl mx-auto px-5 my-8">
+        <div>
             <Player>
                 <!-- Provider component is placed here. -->
                 <Video crossorigin="">
