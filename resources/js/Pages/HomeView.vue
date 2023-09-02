@@ -18,9 +18,11 @@ defineProps({
     <Navbar />
     <Hero />
     <div class="max-w-6xl mx-auto my-11 p-4">
-        <h1>Latest Courses</h1>
+        <h1 class="text-center text-3xl text-teal-500">
+            Our New Course Bundles
+        </h1>
         <div
-            class="mt-3 grid grid-rows-1 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2"
+            class="mt-6 grid grid-rows-1 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2"
         >
             <Card
                 v-for="course in courses"
@@ -33,9 +35,9 @@ defineProps({
         </div>
     </div>
     <div class="max-w-6xl mx-auto mb-11 p-4">
-        <h1>Categories</h1>
+        <h1 class="text-center text-3xl text-teal-500">Course Categories</h1>
         <div
-            class="mt-3 grid grid-rows-1 grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2"
+            class="mt-6 grid grid-rows-1 grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2"
         >
             <CategoryCard
                 v-for="category in categories"
