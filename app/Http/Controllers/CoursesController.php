@@ -60,7 +60,8 @@ class CoursesController extends Controller
             'thumbnail' => $thumbnail,
             'preview' => $preview,
             'category_id' => $request->category_id,
-            'objectives' => $request->objectives
+            'objectives' => $request->objectives,
+            'user_id' => auth()->user()->id
         ]);
 
         return redirect()->route('courses');
@@ -345,6 +346,13 @@ class CoursesController extends Controller
     public function buy(Course $course)
     {
         return Inertia::render('BuyCourse/CartView', [
+            'course' => $course
+        ]);
+    }
+
+    public function checkout(Course $course)
+    {
+        return Inertia::render('BuyCourse/CheckoutView', [
             'course' => $course
         ]);
     }

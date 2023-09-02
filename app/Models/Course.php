@@ -17,7 +17,8 @@ class Course extends Model
         'thumbnail',
         'preview',
         'category_id',
-        'objectives'
+        'objectives',
+        'user_id'
     ];
 
     public function section()

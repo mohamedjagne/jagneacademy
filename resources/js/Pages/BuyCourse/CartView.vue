@@ -1,7 +1,7 @@
 <script setup>
 import Navbar from "@/Components/Navbar.vue";
 import Footer from "@/Components/Footer.vue";
-import { Head } from "@inertiajs/vue3";
+import { Head, Link } from "@inertiajs/vue3";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 
 defineProps({
@@ -59,13 +59,12 @@ defineProps({
                     <td class="px-6 py-4">Total</td>
                     <td class="px-6 py-4">${{ course.price }}</td>
                 </tr>
-                <tr
-                    class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                ></tr>
             </tbody>
         </table>
         <div class="flex items-center justify-end mt-6">
-            <PrimaryButton>Proceed to checkout</PrimaryButton>
+            <Link :href="route('course.checkout', course.id)">
+                <PrimaryButton>Proceed to checkout</PrimaryButton>
+            </Link>
         </div>
     </div>
     <Footer />
