@@ -246,7 +246,7 @@ const vClickOutside = {
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            class="w-5 w-5"
+                            class="w-5 h-5"
                             viewBox="0 0 24 24"
                             style="
                                 fill: rgba(71, 85, 105, 1);
@@ -265,13 +265,17 @@ const vClickOutside = {
                         >
                     </a>
 
-                    <a
+                    <Link
+                        :class="{
+                            'bg-teal-300 text-gray-900':
+                                $page.url.startsWith('/students'),
+                        }"
                         class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-teal-300 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-900"
-                        href="#"
+                        :href="route('students')"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            class="w-5 w-5"
+                            class="w-5 h-5"
                             viewBox="0 0 24 24"
                             style="
                                 fill: rgba(71, 85, 105, 1);
@@ -288,7 +292,7 @@ const vClickOutside = {
                         </svg>
 
                         <span class="mx-2 text-sm font-medium">Students</span>
-                    </a>
+                    </Link>
 
                     <a
                         class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-teal-300 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-900"
@@ -330,7 +334,7 @@ const vClickOutside = {
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            class="w-5 w-5"
+                            class="w-5 h-5"
                             viewBox="0 0 24 24"
                             style="
                                 fill: rgba(71, 85, 105, 1);

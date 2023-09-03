@@ -8,6 +8,7 @@ use App\Http\Controllers\CoursesController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\StudentAccountController;
+use App\Http\Controllers\StudentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,6 +72,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // check post,get,put requests
     Route::post('/course/{course}/checkout', [CoursesController::class, 'storeCheckout'])->name('course.store.checkout');
+
+    // manage students
+    Route::get('/students', [StudentController::class, 'index'])->name('students');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
