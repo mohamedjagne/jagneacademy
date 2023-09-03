@@ -85,7 +85,7 @@ const deleteCourse = () => {
                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                         >
                             <Link
-                                href="route('student.view', student.id)"
+                                :href="route('student.view', student.id)"
                                 class="hover:underline hover:text-teal-400"
                             >
                                 {{ student.full_name }}

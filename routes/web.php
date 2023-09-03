@@ -75,6 +75,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // manage students
     Route::get('/students', [StudentController::class, 'index'])->name('students');
+    Route::get('/students/{student}', [StudentController::class, 'view'])->name('student.view');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
