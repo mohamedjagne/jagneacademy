@@ -10,7 +10,7 @@ import ListGroup from "@/Components/ListGroup.vue";
     <Navbar />
 
     <div
-        class="md:flex max-w-6xl mx-auto my-8 space-y-4 md:space-y-0 space-x-0 md:space-x-4 px-4"
+        class="md:flex max-w-6xl mx-auto my-8 space-y-4 md:space-y-0 md:space-x-4 px-4"
     >
         <ListGroup />
         <div

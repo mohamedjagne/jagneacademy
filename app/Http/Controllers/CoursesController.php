@@ -354,8 +354,10 @@ class CoursesController extends Controller
 
     public function checkout(Course $course)
     {
+        $student = Student::where('user_id', auth()->user()->id)->first();
         return Inertia::render('BuyCourse/CheckoutView', [
-            'course' => $course
+            'course' => $course,
+            'student' => $student
         ]);
     }
 
@@ -382,7 +384,7 @@ class CoursesController extends Controller
             ]);
 
             $student->course()->attach($course->id, [
-                'status' => 'pending',
+                'status' => 'Pending',
                 'order_note' => ucwords($request->order_note),
                 'payment_method' => $request->payment_method
             ]);

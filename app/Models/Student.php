@@ -19,7 +19,7 @@ class Student extends Model
 
     public function course()
     {
-        return $this->belongsToMany(Course::class);
+        return $this->belongsToMany(Course::class)->withPivot(['status', 'order_note', 'payment_method']);
     }
 
     public function user()

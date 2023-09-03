@@ -10,6 +10,7 @@ import { Head, Link, useForm } from "@inertiajs/vue3";
 const props = defineProps({
     errors: Object,
     course: Object,
+    student: Object,
 });
 
 const form = useForm({
@@ -32,7 +33,7 @@ const submit = () => {
     <form @submit.prevent="submit">
         <div class="max-w-6xl mx-auto my-8 px-4">
             <div class="md:flex md:space-x-4">
-                <div v-if="!$page.props.auth.user.student" class="w-full">
+                <div v-if="!student" class="w-full">
                     <h1 class="my-4 font-bold text-2xl">Billing details</h1>
                     <div>
                         <InputLabel

@@ -64,6 +64,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // student account get requests
     Route::get('/student/account', [StudentAccountController::class, 'index'])->name('student.account');
+    Route::get('/student/courses', [StudentAccountController::class, 'courses'])->name('student.courses');
 
     // checkout get requests
     Route::get('/course/{course}/checkout', [CoursesController::class, 'checkout'])->name('course.checkout');

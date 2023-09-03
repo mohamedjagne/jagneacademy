@@ -46,8 +46,11 @@ import { Link } from "@inertiajs/vue3";
             </svg>
             My Profile
         </button>
-        <button
-            type="button"
+        <Link
+            :href="route('student.courses')"
+            :class="{
+                'bg-teal-100 text-teal-400': $page.url == '/student/courses',
+            }"
             class="relative inline-flex items-center w-full px-6 py-3 text-sm font-medium border-b border-gray-200 hover:bg-teal-100 hover:text-teal-400"
         >
             <svg
@@ -68,7 +71,7 @@ import { Link } from "@inertiajs/vue3";
             </svg>
 
             Enrolled Courses
-        </button>
+        </Link>
         <button
             type="button"
             class="relative inline-flex items-center w-full px-6 py-3 text-sm font-medium border-b border-gray-200 hover:bg-teal-100 hover:text-teal-400"
