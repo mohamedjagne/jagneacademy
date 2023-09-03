@@ -30,7 +30,7 @@ const totalTime = computed(() => {
 
     <Navbar />
 
-    <div class="w-full px-3 pb-11">
+    <div class="w-full max-w-6xl mx-auto px-4 my-8">
         <div
             class="bg-teal-500 p-5 mb-4 md:flex md:items-center md:space-x-3 rounded-md mt-4"
         >

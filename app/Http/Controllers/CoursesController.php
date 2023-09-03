@@ -6,6 +6,8 @@ use App\Models\Category;
 use App\Models\Course;
 use App\Models\Lesson;
 use App\Models\Section;
+use App\Models\Student;
+use App\Models\User;
 use getID3;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -355,5 +357,45 @@ class CoursesController extends Controller
         return Inertia::render('BuyCourse/CheckoutView', [
             'course' => $course
         ]);
+    }
+
+    public function storeCheckout(Course $course, Request $request)
+    {
+        $user = User::where('id', auth()->user()->id)->with('student')->first();
+
+        if ($user->student == null) {
+            $request->validate([
+                'fullname' => 'required',
+                'region' => 'required',
+                'address' => 'required',
+                'phone' => 'required',
+                'order_note' => 'required',
+                'payment_method' => 'required'
+            ]);
+
+            $student = Student::create([
+                'full_name' => ucwords($request->fullname),
+                'region' => ucwords($request->region),
+                'address' => ucwords($request->address),
+                'phone' => $request->phone,
+                'user_id' => $user->id
+            ]);
+
+            $student->course()->attach($course->id, [
+                'status' => 'pending',
+                'order_note' => ucwords($request->order_note),
+                'payment_method' => $request->payment_method
+            ]);
+        } else {
+            $student = Student::find($user->student->id);
+
+            $student->course()->attach($course->id, [
+                'status' => 'pending',
+                'order_note' => ucwords($request->order_note),
+                'payment_method' => $request->payment_method
+            ]);
+        }
+
+        return redirect()->route('student.account');
     }
 }

@@ -23,7 +23,6 @@ use App\Http\Controllers\StudentAccountController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/course/{course}', [CoursesController::class, 'guestView'])->name('course.guest.view');
 Route::get('/course/{course}/buy', [CoursesController::class, 'buy'])->name('course.buy');
-Route::get('/course/{course}/checkout', [CoursesController::class, 'checkout'])->name('course.checkout');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -63,7 +62,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/categories/{category}/delete', [CategoryController::class, 'delete'])->name('categories.delete');
     Route::put('/categories/{category}/update', [CategoryController::class, 'update'])->name('categories.update');
 
+    // student account get requests
     Route::get('/student/account', [StudentAccountController::class, 'index'])->name('student.account');
+
+    // checkout get requests
+    Route::get('/course/{course}/checkout', [CoursesController::class, 'checkout'])->name('course.checkout');
+
+    // check post,get,put requests
+    Route::post('/course/{course}/checkout', [CoursesController::class, 'storeCheckout'])->name('course.store.checkout');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

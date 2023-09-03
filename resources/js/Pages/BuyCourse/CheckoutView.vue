@@ -7,18 +7,22 @@ import PrimaryButton from "@/Components/PrimaryButton.vue";
 import TextInput from "@/Components/TextInput.vue";
 import { Head, Link, useForm } from "@inertiajs/vue3";
 
-defineProps({
+const props = defineProps({
     errors: Object,
     course: Object,
 });
 
 const form = useForm({
     fullname: "",
+    region: "",
+    address: "",
+    phone: "",
     order_note: "",
+    payment_method: "",
 });
 
 const submit = () => {
-    console.log("submited");
+    form.post(route("course.store.checkout", props.course.id));
 };
 </script>
 
@@ -28,7 +32,7 @@ const submit = () => {
     <form @submit.prevent="submit">
         <div class="max-w-6xl mx-auto my-8 px-4">
             <div class="md:flex md:space-x-4">
-                <div class="w-full">
+                <div v-if="!$page.props.auth.user.student" class="w-full">
                     <h1 class="my-4 font-bold text-2xl">Billing details</h1>
                     <div>
                         <InputLabel
@@ -75,7 +79,7 @@ const submit = () => {
                         <InputLabel for="phone" value="Phone" class="mt-2" />
                         <TextInput
                             id="phone"
-                            type="text"
+                            type="number"
                             v-model="form.phone"
                             placeholder="phone"
                             class="mt-2 w-full"
@@ -84,21 +88,45 @@ const submit = () => {
                     </div>
                 </div>
                 <div class="w-full">
-                    <h1 class="my-4 font-bold text-2xl">
-                        Additional information
-                    </h1>
-                    <InputLabel
-                        for="order_note"
-                        value="Order Note"
-                        class="mt-2"
-                    />
-                    <textarea
-                        v-model="form.order_note"
-                        id="order_note"
-                        placeholder="order note"
-                        class="mt-2 w-full border-teal-300 focus:border-teal-300 focus:ring-teal-400 rounded-md shadow-sm text-sm"
-                    ></textarea>
-                    <InputError :message="errors.order_note" />
+                    <div>
+                        <h1 class="my-4 font-bold text-2xl">
+                            Select payment method
+                        </h1>
+                        <InputLabel
+                            for="payment_method"
+                            value="Payment Method"
+                            class="mt-2"
+                        />
+                        <select
+                            v-model="form.payment_method"
+                            id="payment_method"
+                            class="mt-2 w-full border-teal-300 focus:border-teal-300 focus:ring-teal-400 rounded-md shadow-sm text-sm"
+                        >
+                            <option value="">Select</option>
+                            <option value="zaad">Zaad</option>
+                            <option value="evc">Evc</option>
+                            <option value="sahal">Sahal</option>
+                            <option value="edahab">Edahab</option>
+                        </select>
+                        <InputError :message="errors.payment_method" />
+                    </div>
+                    <div>
+                        <h1 class="my-4 font-bold text-2xl">
+                            Additional information
+                        </h1>
+                        <InputLabel
+                            for="order_note"
+                            value="Order Note"
+                            class="mt-2"
+                        />
+                        <textarea
+                            v-model="form.order_note"
+                            id="order_note"
+                            placeholder="Qaabka lacagta aad ku soo bixisay iyo numberka aad ka soo dirtay sido kale magaca numberkaasi ku qoran"
+                            class="mt-2 w-full border-teal-300 focus:border-teal-300 focus:ring-teal-400 rounded-md shadow-sm text-sm"
+                        ></textarea>
+                        <InputError :message="errors.order_note" />
+                    </div>
                 </div>
             </div>
             <h1 class="my-4 font-bold text-2xl">Your order</h1>

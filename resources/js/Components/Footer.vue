@@ -1,4 +1,6 @@
-<script setup></script>
+<script setup>
+import { Link } from "@inertiajs/vue3";
+</script>
 
 <template>
     <footer class="bg-white dark:bg-gray-900">
@@ -23,10 +25,8 @@
                             class="text-gray-500 dark:text-gray-400 font-medium"
                         >
                             <li class="mb-4">
-                                <a
-                                    href="https://flowbite.com/"
-                                    class="hover:underline"
-                                    >Flowbite</a
+                                <Link href="" class="hover:underline"
+                                    >Flowbite</Link
                                 >
                             </li>
                             <li>
@@ -93,9 +93,8 @@
                 <span
                     class="text-sm text-gray-500 sm:text-center dark:text-gray-400"
                     >© 2023
-                    <a href="https://flowbite.com/" class="hover:underline"
-                        >Flowbite™</a
-                    >. All Rights Reserved.
+                    <Link href="/" class="hover:underline">Jagneacademy</Link>.
+                    All Rights Reserved.
                 </span>
                 <div class="flex mt-4 space-x-5 sm:justify-center sm:mt-0">
                     <a
