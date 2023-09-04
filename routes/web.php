@@ -71,12 +71,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // checkout get requests
     Route::get('/course/{course}/checkout', [CoursesController::class, 'checkout'])->name('course.checkout');
 
-    // check post,get,put requests
+    // checkout post,get,put requests
     Route::post('/course/{course}/checkout', [CoursesController::class, 'storeCheckout'])->name('course.store.checkout');
 
-    // manage students
+    // manage students get requests
     Route::get('/students', [StudentController::class, 'index'])->name('students');
     Route::get('/students/{student}', [StudentController::class, 'view'])->name('student.view');
+    Route::get('/students/{student}/courses/{course}/update', [StudentController::class, 'studentCourseUpdateForm'])->name('student.course.updateForm');
+
+    // manage students post,put,delete requests
+    Route::put('/students/{student}/courses/{course}/update', [StudentController::class, 'studentCourseUpdate'])->name('student.course.update');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

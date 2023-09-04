@@ -1,17 +1,56 @@
 <script setup>
+import DangerButton from "@/Components/DangerButton.vue";
+import Modal from "@/Components/Modal.vue";
+import SecondaryButton from "@/Components/SecondaryButton.vue";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { Head, Link } from "@inertiajs/vue3";
+import { Head, Link, useForm } from "@inertiajs/vue3";
+import { ref } from "vue";
 
 defineProps({
     student: Object,
 });
+
+const deletedCourse = ref(null);
+
+const confirmingCourseDeletion = ref(false);
+
+const closeModal = () => {
+    confirmingCourseDeletion.value = false;
+};
+
+const confirmCourseDeletion = (id) => {
+    confirmingCourseDeletion.value = true;
+
+    deletedCourse.value = id;
+};
+
+const form = useForm({});
+
+const deleteCourse = () => {
+    form.delete(route("courses.delete", deletedCourse.value), {
+        onSuccess: () => closeModal(),
+    });
+};
+
+const showModalNote = ref(false);
+const ordernote = ref(null);
+
+const showOrderNote = (note) => {
+    showModalNote.value = true;
+
+    ordernote.value = note;
+};
+
+const closeNoteModal = () => {
+    showModalNote.value = false;
+};
 </script>
 
 <template>
     <AuthenticatedLayout>
         <Head title="Students Enrolled Courses" />
         <div>
-            <h1>Students Enrolled Courses</h1>
+            <h1>Student Enrolled Courses</h1>
         </div>
 
         <div class="relative overflow-x-auto shadow-sm sm:rounded-lg mt-8">
@@ -47,10 +86,11 @@ defineProps({
                         <td class="px-6 py-4">${{ course.price }}</td>
                         <td class="px-6 py-4">
                             <span
-                                :class="{
-                                    'bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300':
-                                        course.pivot.status == 'Pending',
-                                }"
+                                :class="
+                                    course.pivot.status == 'Pending'
+                                        ? 'bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300'
+                                        : 'bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300'
+                                "
                                 >{{ course.pivot.status }}</span
                             >
                         </td>
@@ -58,7 +98,10 @@ defineProps({
                             <div class="flex items-center">
                                 <Link
                                     :href="
-                                        route('course.updateForm', course.id)
+                                        route('student.course.updateForm', [
+                                            student.id,
+                                            course.id,
+                                        ])
                                     "
                                 >
                                     <svg
@@ -95,11 +138,67 @@ defineProps({
                                         />
                                     </svg>
                                 </div>
+                                <div
+                                    class="cursor-pointer"
+                                    @click="
+                                        showOrderNote(course.pivot.order_note)
+                                    "
+                                >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke-width="1.5"
+                                        stroke="currentColor"
+                                        class="w-4"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"
+                                        />
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                                        />
+                                    </svg>
+                                </div>
                             </div>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
+        <Modal :show="confirmingCourseDeletion" @close="closeModal">
+            <div class="p-6">
+                <h2 class="text-lg font-medium text-gray-900">
+                    Are you sure you want to delete the course?
+                </h2>
+
+                <div class="mt-6 flex justify-end">
+                    <SecondaryButton @click="closeModal">
+                        Cancel
+                    </SecondaryButton>
+
+                    <DangerButton class="ml-3" @click="deleteCourse">
+                        Delete
+                    </DangerButton>
+                </div>
+            </div>
+        </Modal>
+        <Modal :show="showModalNote" @close="closeModal">
+            <div class="p-6">
+                <h2 class="text-lg font-medium text-gray-900">
+                    {{ ordernote }}
+                </h2>
+
+                <div class="mt-6 flex justify-end">
+                    <SecondaryButton @click="closeNoteModal">
+                        Cancel
+                    </SecondaryButton>
+                </div>
+            </div>
+        </Modal>
     </AuthenticatedLayout>
 </template>

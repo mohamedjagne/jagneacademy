@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -34,5 +35,24 @@ class StudentController extends Controller
         return Inertia::render('Student/ViewStudentCourses', [
             'student' => $student
         ]);
+    }
+
+    public function studentCourseUpdateForm(Student $student, Course $course)
+    {
+        $theCourse = Course::where('id', $course->id)
+            ->with('student', function ($query) use ($student) {
+                $query->where('student_id', $student->id);
+            })
+            ->first();
+
+        return Inertia::render('Student/UpdateStudentCourseView', [
+            'course' => $theCourse
+        ]);
+    }
+
+    public function studentCourseUpdate(Student $student, Course $course, Request $request)
+    {
+        $student->course()->updateExistingPivot($course->id, ['status' => $request->status]);
+        return redirect()->route('student.view', $student->id);
     }
 }

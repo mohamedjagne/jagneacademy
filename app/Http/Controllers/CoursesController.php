@@ -335,7 +335,7 @@ class CoursesController extends Controller
 
         $theCourse = Course::where('id', $course->id)
             ->with('student', function ($query) use ($student) {
-                $query->where('student_id', $student->id);
+                $query->where('student_id', $student->id ?? null);
             })
             ->first();
 
@@ -373,7 +373,7 @@ class CoursesController extends Controller
     public function storeCheckout(Course $course, Request $request)
     {
         $student = Student::where('user_id', auth()->user()->id)->first();
-        $courseStudent = DB::table('course_student')->where('student_id', $student->id)
+        $courseStudent = DB::table('course_student')->where('student_id', $student->id ?? null)
             ->where('course_id', $course->id)->first();
 
         if (!$student) {
