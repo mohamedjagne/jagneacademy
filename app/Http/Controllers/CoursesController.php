@@ -10,6 +10,7 @@ use App\Models\Student;
 use App\Models\User;
 use getID3;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
@@ -330,9 +331,17 @@ class CoursesController extends Controller
 
     public function startLesson(Course $course, Lesson $lesson)
     {
+        $student = Student::where('user_id', auth()->user()->id)->first();
+
+        $theCourse = Course::where('id', $course->id)
+            ->with('student', function ($query) use ($student) {
+                $query->where('student_id', $student->id);
+            })
+            ->first();
+
         return Inertia::render('Courses/StartLessonView', [
             'lesson' => $lesson,
-            'course' => $course->load(['section', 'section.lesson'])
+            'course' => $theCourse
         ]);
     }
 
@@ -363,9 +372,11 @@ class CoursesController extends Controller
 
     public function storeCheckout(Course $course, Request $request)
     {
-        $user = User::where('id', auth()->user()->id)->with('student')->first();
+        $student = Student::where('user_id', auth()->user()->id)->first();
+        $courseStudent = DB::table('course_student')->where('student_id', $student->id)
+            ->where('course_id', $course->id)->first();
 
-        if ($user->student == null) {
+        if (!$student) {
             $request->validate([
                 'fullname' => 'required',
                 'region' => 'required',
@@ -380,7 +391,7 @@ class CoursesController extends Controller
                 'region' => ucwords($request->region),
                 'address' => ucwords($request->address),
                 'phone' => $request->phone,
-                'user_id' => $user->id
+                'user_id' => auth()->user()->id
             ]);
 
             $student->course()->attach($course->id, [
@@ -388,14 +399,24 @@ class CoursesController extends Controller
                 'order_note' => ucwords($request->order_note),
                 'payment_method' => $request->payment_method
             ]);
-        } else {
-            $student = Student::find($user->student->id);
+        } else if (!$courseStudent) {
+            $request->validate([
+                'order_note' => 'required',
+                'payment_method' => 'required'
+            ]);
+            $student = Student::find($student->id);
 
             $student->course()->attach($course->id, [
-                'status' => 'pending',
+                'status' => 'Pending',
                 'order_note' => ucwords($request->order_note),
                 'payment_method' => $request->payment_method
             ]);
+        } else {
+            $request->validate([
+                'order_note' => 'required',
+                'payment_method' => 'required'
+            ]);
+            return redirect()->back()->with('message', 'horey ayaad u dalbatay coursadan fadlan nagala soo xidhiidh numberka * 252633083356');
         }
 
         return redirect()->route('student.account');

@@ -1,13 +1,30 @@
 <script setup>
 import Footer from "@/Components/Footer.vue";
 import Navbar from "@/Components/Navbar.vue";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
 import { Head, Link } from "@inertiajs/vue3";
 import "@vime/core/themes/default.css";
 import { Player, DefaultUi, Video } from "@vime/vue-next";
+import { computed } from "vue";
 
-defineProps({
+const props = defineProps({
     lesson: Object,
     course: Object,
+});
+
+const hasCourse = computed(() => {
+    if (props.course.student.length > 0) {
+        if (
+            props.course.student[0] !== null &&
+            props.course.student[0].pivot.status === "Active"
+        ) {
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
 });
 </script>
 
@@ -17,7 +34,16 @@ defineProps({
     <Navbar />
 
     <div class="max-w-6xl mx-auto px-5 my-8">
-        <div>
+        <div
+            v-if="!hasCourse"
+            class="bg-gray-300 w-full py-16 rounded-md flex flex-col space-y-1 items-center justify-center"
+        >
+            <h1 class="text-gray-500 text-lg">Unlock the course</h1>
+            <Link :href="route('course.buy', course.id)">
+                <PrimaryButton>Start Course</PrimaryButton>
+            </Link>
+        </div>
+        <div v-if="hasCourse">
             <Player>
                 <!-- Provider component is placed here. -->
                 <Video crossorigin="">
@@ -32,7 +58,13 @@ defineProps({
             </Player>
             <!-- <video :src="previewUrl" class="w-full h-full" controls></video> -->
         </div>
-        <div v-html="lesson.body" class="leading-relaxed mt-4"></div>
+        <div
+            v-html="lesson.body"
+            class="leading-relaxed mt-4"
+            :class="{
+                'blur-sm select-none': !hasCourse,
+            }"
+        ></div>
 
         <div class="mt-4 bg-white rounded-md">
             <div v-for="section in course.section">
