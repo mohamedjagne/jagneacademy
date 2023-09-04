@@ -24,7 +24,7 @@ defineProps({
             >
                 <Link
                     v-for="course in student.course"
-                    href="#"
+                    :href="route('student.course.start', course.id)"
                     class="block w-full px-4 py-2 border-b border-gray-200 cursor-pointer hover:text-teal-400 hover:bg-gray-200"
                 >
                     <div class="flex items-center justify-between">
