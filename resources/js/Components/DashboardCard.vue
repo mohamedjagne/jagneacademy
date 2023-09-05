@@ -1,4 +1,9 @@
-<script setup></script>
+<script setup>
+defineProps({
+    count: Number,
+    title: String,
+});
+</script>
 
 <template>
     <div
@@ -7,8 +12,8 @@
         <h5
             class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
         >
-            0
+            {{ count }}
         </h5>
-        <p class="font-normal text-gray-700 dark:text-gray-400">New Students</p>
+        <p class="font-normal text-gray-700 dark:text-gray-400">{{ title }}</p>
     </div>
 </template>

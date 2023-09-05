@@ -6,6 +6,13 @@ import VueDatePicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
 import { ref } from "vue";
 
+defineProps({
+    todayStudents: Number,
+    thisMonthStudents: Number,
+    todayRevenue: Number,
+    thisMonthRevenue: Number,
+});
+
 const date = ref([
     new Date(),
     new Date(new Date().setDate(new Date().getDate() + 7)),
@@ -64,17 +71,23 @@ const series = [
         <div class="md:flex md:space-x-3">
             <div class="space-y-3 mt-6 w-full">
                 <h1 class="text-2xl font-bold">Today</h1>
-                <DashboardCard />
-                <DashboardCard />
-                <DashboardCard />
-                <DashboardCard />
+                <DashboardCard :count="todayStudents" title="New Student" />
+                <DashboardCard
+                    :count="'$' + todayRevenue.toFixed(2)"
+                    title="Revenue"
+                />
+                <DashboardCard count="0" title="Lesson Completion" />
+                <DashboardCard count="0" title="Course Completion" />
             </div>
             <div class="space-y-3 mt-6 w-full">
                 <h1 class="text-2xl font-bold">This Month</h1>
-                <DashboardCard />
-                <DashboardCard />
-                <DashboardCard />
-                <DashboardCard />
+                <DashboardCard :count="thisMonthStudents" title="New Student" />
+                <DashboardCard
+                    :count="'$' + thisMonthRevenue.toFixed(2)"
+                    title="Revenue"
+                />
+                <DashboardCard count="0" title="Lesson Completion" />
+                <DashboardCard count="0" title="Course Completion" />
             </div>
         </div>
     </AuthenticatedLayout>
