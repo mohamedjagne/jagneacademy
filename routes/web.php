@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CoursesController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SalesController;
 use App\Http\Controllers\StudentAccountController;
 use App\Http\Controllers\StudentController;
 
@@ -81,6 +82,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // manage students post,put,delete requests
     Route::put('/students/{student}/courses/{course}/update', [StudentController::class, 'studentCourseUpdate'])->name('student.course.update');
+
+    // sales get requests
+    Route::get('/sales/transactions', [SalesController::class, 'transactions'])->name('sales.transactions');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

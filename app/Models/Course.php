@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class Course extends Model
 {
@@ -28,6 +29,11 @@ class Course extends Model
 
     public function student()
     {
-        return $this->belongsToMany(Student::class)->withPivot(['status', 'order_note', 'payment_method']);
+        return $this->belongsToMany(Student::class)->withPivot(['status', 'order_note', 'payment_method'])->withTimestamps();
+    }
+
+    public function lesson(): HasManyThrough
+    {
+        return $this->hasManyThrough(Lesson::class, Section::class);
     }
 }
