@@ -13,7 +13,20 @@ class StudentAccountController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Student/AccountView');
+        $enrolledCourses = Student::where('user_id', auth()->user()->id)
+            ->withCount('course')
+            ->first();
+
+        $pendingCourses = Student::where('user_id', auth()->user()->id)
+            ->withCount(['course' =>  function ($query) {
+                $query->where('status', 'Pending');
+            }])
+            ->first();
+
+        return Inertia::render('Student/AccountView', [
+            'enrolledCourses' => $enrolledCourses,
+            'pendingCourses' => $pendingCourses
+        ]);
     }
 
     public function courses()

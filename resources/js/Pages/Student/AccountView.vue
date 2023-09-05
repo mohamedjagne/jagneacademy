@@ -3,6 +3,11 @@ import Navbar from "@/Components/Navbar.vue";
 import Footer from "@/Components/Footer.vue";
 import { Link, Head } from "@inertiajs/vue3";
 import ListGroup from "@/Components/ListGroup.vue";
+
+defineProps({
+    activeCourses: Number,
+    enrolledCourses: Number,
+});
 </script>
 
 <template>
@@ -39,7 +44,7 @@ import ListGroup from "@/Components/ListGroup.vue";
                 <h5
                     class="my-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white"
                 >
-                    0
+                    {{ enrolledCourses.course_count }}
                 </h5>
                 <p class="mb-3 font-normal text-gray-500 dark:text-gray-400">
                     Enrolled Courses
@@ -68,7 +73,7 @@ import ListGroup from "@/Components/ListGroup.vue";
                 <h5
                     class="my-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white"
                 >
-                    0
+                    {{ enrolledCourses.course_count }}
                 </h5>
                 <p class="mb-3 font-normal text-gray-500 dark:text-gray-400">
                     Active Courses
