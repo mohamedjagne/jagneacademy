@@ -1,12 +1,12 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CoursesController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\InstructorsController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\StudentAccountController;
 use App\Http\Controllers\StudentController;
@@ -86,6 +86,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // sales get requests
     Route::get('/sales/transactions', [SalesController::class, 'transactions'])->name('sales.transactions');
     Route::get('/sales/courses', [SalesController::class, 'courses'])->name('sales.courses');
+
+    // instructors get requests
+    Route::get('/instructors', [InstructorsController::class, 'index'])->name('instructors')->middleware('role:admin');
+    Route::get('/instructors/create', [InstructorsController::class, 'storeForm'])->name('instructors.storeForm')->middleware('role:admin');
+    Route::get('/instructors/{user}/update', [InstructorsController::class, 'updateForm'])->name('instructors.updateForm')->middleware('role:admin');
+
+    // instructors post, put and delete requests
+    Route::post('/instructors/create', [InstructorsController::class, 'store'])->name('instructors.store');
+    Route::delete('/instructors/{user}/delete', [InstructorsController::class, 'delete'])->name('instructors.delete');
+    Route::put('/instructors/{user}/update', [InstructorsController::class, 'update'])->name('instructors.update');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

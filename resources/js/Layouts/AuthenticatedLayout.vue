@@ -240,7 +240,12 @@ const vClickOutside = {
                         >Operations</label
                     >
 
-                    <a
+                    <Link
+                        :class="{
+                            'bg-teal-300 text-gray-900':
+                                $page.url.startsWith('/instructors'),
+                        }"
+                        :href="route('instructors')"
                         class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-teal-300 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-900"
                         href="#"
                     >
@@ -263,7 +268,7 @@ const vClickOutside = {
                         <span class="mx-2 text-sm font-medium"
                             >Instructors</span
                         >
-                    </a>
+                    </Link>
 
                     <Link
                         :class="{

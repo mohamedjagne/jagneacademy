@@ -23,6 +23,7 @@
         "@vuepic/vue-datepicker": "^6.0.3",
         "@vueup/vue-quill": "^1.2.0",
         "apexcharts": "^3.42.0",
+        "lodash": "^4.17.21",
         "vue3-apexcharts": "^1.4.4"
     }
 }
