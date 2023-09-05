@@ -185,6 +185,7 @@ const vClickOutside = {
                     </a>
 
                     <Link
+                        v-if="$page.props.auth.user.role_id == 4"
                         :href="route('courses')"
                         :class="{
                             'bg-teal-300 text-gray-900':
@@ -212,6 +213,7 @@ const vClickOutside = {
                     </Link>
 
                     <a
+                        v-if="$page.props.auth.user.role_id == 4"
                         class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-teal-300 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-900"
                         href="#"
                     >
@@ -241,6 +243,7 @@ const vClickOutside = {
                     >
 
                     <Link
+                        v-if="$page.props.auth.user.role_id == 1"
                         :class="{
                             'bg-teal-300 text-gray-900':
                                 $page.url.startsWith('/instructors'),
@@ -271,6 +274,10 @@ const vClickOutside = {
                     </Link>
 
                     <Link
+                        v-if="
+                            $page.props.auth.user.role_id == 4 ||
+                            $page.props.auth.user.role_id == 2
+                        "
                         :class="{
                             'bg-teal-300 text-gray-900':
                                 $page.url.startsWith('/students'),
@@ -300,6 +307,10 @@ const vClickOutside = {
                     </Link>
 
                     <Link
+                        v-if="
+                            $page.props.auth.user.role_id == 4 ||
+                            $page.props.auth.user.role_id == 1
+                        "
                         :href="route('sales.transactions')"
                         :class="{
                             'bg-teal-300 text-gray-900':
@@ -334,6 +345,10 @@ const vClickOutside = {
                     >
 
                     <Link
+                        v-if="
+                            $page.props.auth.user.role_id == 4 ||
+                            $page.props.auth.user.role_id == 1
+                        "
                         :href="route('categories')"
                         :class="{
                             'bg-teal-300 text-gray-900':
@@ -361,6 +376,7 @@ const vClickOutside = {
                     </Link>
 
                     <a
+                        v-if="$page.props.auth.user.role_id == 1"
                         class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-teal-300 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-900"
                         href="#"
                     >

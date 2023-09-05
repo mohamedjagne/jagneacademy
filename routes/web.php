@@ -27,21 +27,21 @@ Route::get('/course/{course}', [CoursesController::class, 'guestView'])->name('c
 Route::get('/course/{course}/buy', [CoursesController::class, 'buy'])->name('course.buy');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('role:share');
 
     // courses get requests
-    Route::get('/courses', [CoursesController::class, 'index'])->name('courses');
-    Route::get('/courses/create', [CoursesController::class, 'storeForm'])->name('courses.storeForm');
-    Route::get('/courses/{course}/view', [CoursesController::class, 'view'])->name('course.view');
-    Route::get('/courses/{course}/update', [CoursesController::class, 'updateForm'])->name('course.updateForm');
-    Route::get('/courses/{course}/sections', [CoursesController::class, 'sections'])->name('course.sections');
-    Route::get('/courses/{course}/sections/create', [CoursesController::class, 'sectionsStoreForm'])->name('courses.sections.storeForm');
-    Route::get('/courses/{course}/sections/{section}/update', [CoursesController::class, 'sectionsUpdateForm'])->name('courses.sections.updateForm');
-    Route::get('/courses/{course}/lessons', [CoursesController::class, 'lessons'])->name('course.lessons');
-    Route::get('/courses/{course}/lessons/create', [CoursesController::class, 'lessonsStoreForm'])->name('courses.lessons.storeForm');
-    Route::get('/courses/{course}/lessons/{lesson}/update', [CoursesController::class, 'lessonsUpdateForm'])->name('courses.lessons.updateForm');
-    Route::get('/courses/{course}/lessons/{lesson}/view', [CoursesController::class, 'viewLesson'])->name('courses.lessons.view');
-    Route::get('/courses/{course}/lessons/{lesson}/start', [CoursesController::class, 'startLesson'])->name('courses.lessons.start');
+    Route::get('/courses', [CoursesController::class, 'index'])->name('courses')->middleware('role:instructor');
+    Route::get('/courses/create', [CoursesController::class, 'storeForm'])->name('courses.storeForm')->middleware('role:instructor');
+    Route::get('/courses/{course}/view', [CoursesController::class, 'view'])->name('course.view')->middleware('role:instructor');
+    Route::get('/courses/{course}/update', [CoursesController::class, 'updateForm'])->name('course.updateForm')->middleware('role:instructor');
+    Route::get('/courses/{course}/sections', [CoursesController::class, 'sections'])->name('course.sections')->middleware('role:instructor');
+    Route::get('/courses/{course}/sections/create', [CoursesController::class, 'sectionsStoreForm'])->name('courses.sections.storeForm')->middleware('role:instructor');
+    Route::get('/courses/{course}/sections/{section}/update', [CoursesController::class, 'sectionsUpdateForm'])->name('courses.sections.updateForm')->middleware('role:instructor');
+    Route::get('/courses/{course}/lessons', [CoursesController::class, 'lessons'])->name('course.lessons')->middleware('role:instructor');
+    Route::get('/courses/{course}/lessons/create', [CoursesController::class, 'lessonsStoreForm'])->name('courses.lessons.storeForm')->middleware('role:instructor');
+    Route::get('/courses/{course}/lessons/{lesson}/update', [CoursesController::class, 'lessonsUpdateForm'])->name('courses.lessons.updateForm')->middleware('role:instructor');
+    Route::get('/courses/{course}/lessons/{lesson}/view', [CoursesController::class, 'viewLesson'])->name('courses.lessons.view')->middleware('role:instructor');
+    Route::get('/courses/{course}/lessons/{lesson}/start', [CoursesController::class, 'startLesson'])->name('courses.lessons.start')->middleware('role:student');
 
     // courses post, put and delete requests
     Route::post('/courses/create', [CoursesController::class, 'store'])->name('courses.store');
@@ -55,9 +55,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/courses/lessons/{lesson}/delete', [CoursesController::class, 'lessonsDelete'])->name('courses.lesson.delete');
 
     // categories get requests
-    Route::get('/categories', [CategoryController::class, 'index'])->name('categories');
-    Route::get('/categories/create', [CategoryController::class, 'storeForm'])->name('categories.storeForm');
-    Route::get('/categories/{category}/update', [CategoryController::class, 'updateForm'])->name('categories.updateForm');
+    Route::get('/categories', [CategoryController::class, 'index'])->name('categories')->middleware('role:admin&instructor');
+    Route::get('/categories/create', [CategoryController::class, 'storeForm'])->name('categories.storeForm')->middleware('role:admin&instructor');
+    Route::get('/categories/{category}/update', [CategoryController::class, 'updateForm'])->name('categories.updateForm')->middleware('role:admin&instructor');
 
     // categories post, put, delete requests
     Route::post('/categories/create', [CategoryController::class, 'store'])->name('categories.store');
@@ -65,27 +65,27 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('/categories/{category}/update', [CategoryController::class, 'update'])->name('categories.update');
 
     // student account get requests
-    Route::get('/student/account', [StudentAccountController::class, 'index'])->name('student.account');
-    Route::get('/student/courses', [StudentAccountController::class, 'courses'])->name('student.courses');
-    Route::get('/courses/{course}/start', [StudentAccountController::class, 'startCourse'])->name('student.course.start');
+    Route::get('/student/account', [StudentAccountController::class, 'index'])->name('student.account')->middleware('role:student');
+    Route::get('/student/courses', [StudentAccountController::class, 'courses'])->name('student.courses')->middleware('role:student');
+    Route::get('/courses/{course}/start', [StudentAccountController::class, 'startCourse'])->name('student.course.start')->middleware('role:student');
 
     // checkout get requests
-    Route::get('/course/{course}/checkout', [CoursesController::class, 'checkout'])->name('course.checkout');
+    Route::get('/course/{course}/checkout', [CoursesController::class, 'checkout'])->name('course.checkout')->middleware('role:student');
 
     // checkout post,get,put requests
     Route::post('/course/{course}/checkout', [CoursesController::class, 'storeCheckout'])->name('course.store.checkout');
 
     // manage students get requests
-    Route::get('/students', [StudentController::class, 'index'])->name('students');
-    Route::get('/students/{student}', [StudentController::class, 'view'])->name('student.view');
-    Route::get('/students/{student}/courses/{course}/update', [StudentController::class, 'studentCourseUpdateForm'])->name('student.course.updateForm');
+    Route::get('/students', [StudentController::class, 'index'])->name('students')->middleware('role:user&instructor');
+    Route::get('/students/{student}', [StudentController::class, 'view'])->name('student.view')->middleware('role:user&instructor');
+    Route::get('/students/{student}/courses/{course}/update', [StudentController::class, 'studentCourseUpdateForm'])->name('student.course.updateForm')->middleware('role:user&instructor');
 
     // manage students post,put,delete requests
     Route::put('/students/{student}/courses/{course}/update', [StudentController::class, 'studentCourseUpdate'])->name('student.course.update');
 
     // sales get requests
-    Route::get('/sales/transactions', [SalesController::class, 'transactions'])->name('sales.transactions');
-    Route::get('/sales/courses', [SalesController::class, 'courses'])->name('sales.courses');
+    Route::get('/sales/transactions', [SalesController::class, 'transactions'])->name('sales.transactions')->middleware('role:admin&instructor')->middleware('role:admin&instructor');
+    Route::get('/sales/courses', [SalesController::class, 'courses'])->name('sales.courses')->middleware('role:admin&instructor')->middleware('role:admin&instructor');
 
     // instructors get requests
     Route::get('/instructors', [InstructorsController::class, 'index'])->name('instructors')->middleware('role:admin');

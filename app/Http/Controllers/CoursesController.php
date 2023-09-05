@@ -23,6 +23,7 @@ class CoursesController extends Controller
             ->when($search, function ($query) use ($search) {
                 $query->where('title', 'like', '%' . $search . '%');
             })
+            ->where('user_id', auth()->user()->id)
             ->get();
 
         return Inertia::render('Courses/CoursesView', [

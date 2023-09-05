@@ -34,10 +34,10 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        if (auth()->user()->role_id == 1) {
-            return redirect()->intended(route('dashboard'));
-        } else if (auth()->user()->role_id == 3) {
+        if (auth()->user()->role_id == 3) {
             return redirect()->intended(route('student.account'));
+        } else {
+            return redirect()->intended(route('dashboard'));
         }
     }
 
