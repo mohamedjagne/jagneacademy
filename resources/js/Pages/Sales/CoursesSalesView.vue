@@ -1,28 +1,25 @@
 <script setup>
-import TextInput from "@/Components/TextInput.vue";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
+import TextInput from "@/Components/TextInput.vue";
+import { ref, watch } from "vue";
 import { Head, Link, router } from "@inertiajs/vue3";
-import { watch, ref } from "vue";
 
 const props = defineProps({
-    transactions: Object,
-    search: String,
+    courses: Object,
 });
 
 const search = ref(props.search);
 
 watch(search, (value) => {
-    if (value) {
-        router.get(route("sales.transactions"), { search: value });
-    } else {
-        router.get(route("sales.transactions"));
-    }
+    router.get(route("sales.courses"), {
+        search: value,
+    });
 });
 </script>
 
 <template>
-    <Head title="Transations" />
     <AuthenticatedLayout>
+        <Head title="Sections List" />
         <div class="border-b border-gray-200 dark:border-gray-700">
             <ul
                 class="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400"
@@ -86,9 +83,10 @@ watch(search, (value) => {
             </ul>
         </div>
         <div class="mt-3 md:flex md:items-center md:justify-between">
-            <h1>Transations List</h1>
+            <h1>Courses Sales</h1>
             <TextInput v-model="search" type="search" placeholder="Search..." />
         </div>
+
         <div class="relative overflow-x-auto shadow-sm sm:rounded-lg mt-8">
             <table
                 class="w-full text-sm text-left text-gray-500 dark:text-gray-400"
@@ -97,28 +95,30 @@ watch(search, (value) => {
                     class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400"
                 >
                     <tr>
-                        <th scope="col" class="px-6 py-3">Full Name</th>
-                        <th scope="col" class="px-6 py-3">Phone</th>
-                        <th scope="col" class="px-6 py-3">Course</th>
-                        <th scope="col" class="px-6 py-3">Date</th>
+                        <th scope="col" class="px-6 py-3">Title</th>
+                        <th scope="col" class="px-6 py-3">#Students</th>
                         <th scope="col" class="px-6 py-3">Price</th>
+                        <th scope="col" class="px-6 py-3">Revenue</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr
-                        v-for="transaction in transactions"
+                        v-for="course in courses"
                         class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
                     >
                         <th
                             scope="row"
                             class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                         >
-                            {{ transaction.full_name }}
+                            {{ course.title }}
                         </th>
-                        <td class="px-6 py-3">{{ transaction.phone }}</td>
-                        <td class="px-6 py-3">{{ transaction.title }}</td>
-                        <td class="px-6 py-3">{{ transaction.created_at }}</td>
-                        <td class="px-6 py-3">${{ transaction.price }}</td>
+                        <td class="px-6 py-3">{{ course.student_count }}</td>
+                        <td class="px-6 py-3">${{ course.price }}</td>
+                        <td class="px-6 py-3">
+                            ${{
+                                (course.student_count * course.price).toFixed(2)
+                            }}
+                        </td>
                     </tr>
                 </tbody>
             </table>

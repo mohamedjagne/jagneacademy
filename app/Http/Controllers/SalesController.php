@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
@@ -25,6 +26,17 @@ class SalesController extends Controller
         return Inertia::render('Sales/TransactionsView', [
             'transactions' => $transactions,
             'search' => $search
+        ]);
+    }
+
+    public function courses()
+    {
+        $courses = Course::with('student')
+            ->withCount('student')
+            ->get();
+
+        return Inertia::render('Sales/CoursesSalesView', [
+            'courses' => $courses
         ]);
     }
 }

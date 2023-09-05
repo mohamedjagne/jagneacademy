@@ -85,6 +85,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // sales get requests
     Route::get('/sales/transactions', [SalesController::class, 'transactions'])->name('sales.transactions');
+    Route::get('/sales/courses', [SalesController::class, 'courses'])->name('sales.courses');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
