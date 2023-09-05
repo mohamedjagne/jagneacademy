@@ -73,7 +73,7 @@ defineProps({
                 <h5
                     class="my-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white"
                 >
-                    {{ enrolledCourses.course_count }}
+                    {{ activeCourses.course_count }}
                 </h5>
                 <p class="mb-3 font-normal text-gray-500 dark:text-gray-400">
                     Active Courses

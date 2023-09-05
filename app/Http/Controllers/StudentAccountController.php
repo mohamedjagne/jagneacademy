@@ -17,15 +17,15 @@ class StudentAccountController extends Controller
             ->withCount('course')
             ->first();
 
-        $pendingCourses = Student::where('user_id', auth()->user()->id)
+        $activeCourses = Student::where('user_id', auth()->user()->id)
             ->withCount(['course' =>  function ($query) {
-                $query->where('status', 'Pending');
+                $query->where('status', 'Active');
             }])
             ->first();
 
         return Inertia::render('Student/AccountView', [
             'enrolledCourses' => $enrolledCourses,
-            'pendingCourses' => $pendingCourses
+            'activeCourses' => $activeCourses
         ]);
     }
 

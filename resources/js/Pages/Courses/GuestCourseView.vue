@@ -64,13 +64,15 @@ const totalTime = computed(() => {
                 <!-- <video :src="previewUrl" class="w-full h-full" controls></video> -->
             </div>
         </div>
-        <div class="md:flex md:justify-between space-y-3 md:space-y-0">
-            <div class="md:w-3/5 space-y-2">
+        <div
+            class="md:flex md:justify-between space-y-3 md:space-y-0 md:space-x-16"
+        >
+            <div class="space-y-2 w-full">
                 <h4 class="text-3xl">About the course</h4>
                 <div v-html="course.body" class="leading-relaxed"></div>
             </div>
 
-            <div class="md:space-y-2">
+            <div class="md:space-y-2 w-full">
                 <h4 class="text-2xl">What you will learn</h4>
 
                 <ul

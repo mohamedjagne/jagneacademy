@@ -101,7 +101,7 @@ const showMenu = ref(false);
                     <li
                         v-if="
                             $page.props.auth.user &&
-                            $page.props.auth.user.role_id == 1
+                            $page.props.auth.user.role_id !== 3
                         "
                     >
                         <Link
