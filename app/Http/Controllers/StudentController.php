@@ -26,14 +26,12 @@ class StudentController extends Controller
         ]);
     }
 
-    public function view()
+    public function view(Student $student)
     {
-        $student = Student::latest()
-            ->with('course')
-            ->first();
+        $theStudent = $student->load('course');
 
         return Inertia::render('Student/ViewStudentCourses', [
-            'student' => $student
+            'student' => $theStudent
         ]);
     }
 

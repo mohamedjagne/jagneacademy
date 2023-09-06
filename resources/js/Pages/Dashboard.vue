@@ -1,37 +1,82 @@
 <script setup>
 import DashboardCard from "@/Components/DashboardCard.vue";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { Head } from "@inertiajs/vue3";
+import { Head, router } from "@inertiajs/vue3";
 import VueDatePicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
+import { watch } from "vue";
 import { ref } from "vue";
 
-defineProps({
+const props = defineProps({
     todayStudents: Number,
     thisMonthStudents: Number,
     todayRevenue: Number,
     thisMonthRevenue: Number,
+    dates: Array,
+    from: Date,
+    to: Date,
+    type: String,
+    newStudents: Array,
 });
 
-const date = ref([
-    new Date(),
-    new Date(new Date().setDate(new Date().getDate() + 7)),
-]);
+const date = ref([props.from, props.to]);
 
-const type = ref("New Students");
+const type = ref(props.type ?? "New Students");
+
+watch(date, (value) => {
+    router.get(route("dashboard", { date: value, type: type.value }));
+});
+
+watch(type, (value) => {
+    router.get(route("dashboard", { date: date.value, type: value }));
+});
 
 const options = ref({
     chart: {
-        id: "vuechart-example",
+        type: "area",
+        stacked: false,
+        height: 350,
+        zoom: {
+            type: "x",
+            enabled: true,
+            autoScaleYaxis: true,
+        },
+        toolbar: {
+            autoSelected: "zoom",
+        },
+    },
+    dataLabels: {
+        enabled: false,
+    },
+    markers: {
+        size: 0,
+    },
+    title: {
+        text: "Students, revenue and sales data",
+        align: "left",
+    },
+    fill: {
+        type: "gradient",
+        gradient: {
+            shadeIntensity: 1,
+            inverseColors: false,
+            opacityFrom: 0.5,
+            opacityTo: 0,
+            stops: [0, 90, 100],
+        },
     },
     xaxis: {
-        categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998],
+        type: "datetime",
+        categories: props.dates,
+    },
+    tooltip: {
+        shared: false,
     },
 });
 const series = [
     {
-        name: "series-1",
-        data: [30, 40, 45, 50, 49, 60, 70, 91],
+        name: "New Students",
+        data: props.newStudents,
     },
 ];
 </script>
@@ -63,7 +108,7 @@ const series = [
         <div class="mt-4">
             <apexchart
                 width="100%"
-                type="line"
+                type="area"
                 :options="options"
                 :series="series"
             ></apexchart>

@@ -39,6 +39,8 @@ const showOrderNote = (note) => {
     showModalNote.value = true;
 
     ordernote.value = note;
+
+    console.log(note);
 };
 
 const closeNoteModal = () => {
